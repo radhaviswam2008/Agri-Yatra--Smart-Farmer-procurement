@@ -1,0 +1,5648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Smart Farmer - Dashboard
+    </title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            font-family:
+                Inter,
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f5f7f4;
+
+            color: #1f2937;
+        }
+
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* ==========================================
+           APP
+        ========================================== */
+
+        .app {
+            min-height: 100vh;
+
+            display: flex;
+        }
+
+
+        /* ==========================================
+           SIDEBAR
+        ========================================== */
+
+        .sidebar {
+
+            width: 255px;
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            background: white;
+
+            border-right:
+                1px solid #e5e7eb;
+
+            display: flex;
+
+            flex-direction: column;
+
+            z-index: 100;
+        }
+
+
+        .brand {
+
+            padding: 24px 20px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+        }
+
+
+        .brand-row {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .brand-icon {
+
+            width: 45px;
+            height: 45px;
+
+            border-radius: 12px;
+
+            background: #dcfce7;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 23px;
+        }
+
+
+        .brand h2 {
+
+            color: #166534;
+
+            font-size: 17px;
+        }
+
+
+        .brand p {
+
+            color: #6b7280;
+
+            font-size: 11px;
+
+            margin-top: 3px;
+        }
+
+
+        /* ==========================================
+           NAVIGATION
+        ========================================== */
+
+        .nav {
+
+            padding: 16px 12px;
+
+            flex: 1;
+
+            overflow-y: auto;
+        }
+
+
+        .nav-label {
+
+            color: #9ca3af;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: .08em;
+
+            padding:
+                12px 12px 8px;
+        }
+
+
+        .nav-item {
+
+            width: 100%;
+
+            border: none;
+
+            background: transparent;
+
+            color: #4b5563;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 11px 13px;
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            text-align: left;
+
+            margin-bottom: 3px;
+        }
+
+
+        .nav-item:hover {
+
+            background: #f0fdf4;
+
+            color: #166534;
+        }
+
+
+        .nav-item.active {
+
+            background: #dcfce7;
+
+            color: #166534;
+
+            font-weight: 700;
+        }
+
+
+        .nav-icon {
+
+            width: 24px;
+
+            text-align: center;
+
+            font-size: 17px;
+        }
+
+
+        /* ==========================================
+           PROFILE CARD
+        ========================================== */
+
+        .profile-card {
+
+            padding: 15px;
+
+            border-top:
+                1px solid #e5e7eb;
+        }
+
+
+        .profile-row {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .avatar {
+
+            width: 39px;
+            height: 39px;
+
+            background: #166534;
+
+            color: white;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 700;
+        }
+
+
+        .profile-name {
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        .profile-id {
+
+            font-size: 10px;
+
+            color: #6b7280;
+
+            margin-top: 2px;
+        }
+
+
+        .logout-btn {
+
+            width: 100%;
+
+            border:
+                1px solid #fecaca;
+
+            background: #fffafa;
+
+            color: #dc2626;
+
+            border-radius: 8px;
+
+            padding: 9px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .logout-btn:hover {
+
+            background: #fef2f2;
+        }
+
+
+        /* ==========================================
+           MAIN
+        ========================================== */
+
+        .main {
+
+            margin-left: 255px;
+
+            width:
+                calc(100% - 255px);
+
+            min-height: 100vh;
+        }
+
+
+        /* ==========================================
+           TOPBAR
+        ========================================== */
+
+        .topbar {
+
+            height: 76px;
+
+            background: white;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 30px;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 50;
+        }
+
+
+        .welcome h1 {
+
+            font-size: 21px;
+
+            color: #111827;
+        }
+
+
+        .welcome p {
+
+            color: #6b7280;
+
+            font-size: 12px;
+
+            margin-top: 3px;
+        }
+
+
+        .top-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .online {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            background: #f0fdf4;
+
+            color: #15803d;
+
+            padding: 8px 12px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+        }
+
+
+        .online-dot {
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+        }
+
+
+        .refresh-btn {
+
+            border:
+                1px solid #d1d5db;
+
+            background: white;
+
+            padding: 8px 12px;
+
+            border-radius: 8px;
+
+            color: #374151;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        .refresh-btn:hover {
+
+            background: #f9fafb;
+        }
+
+
+        /* ==========================================
+           CONTENT
+        ========================================== */
+
+        .content {
+
+            padding:
+                28px 30px 60px;
+        }
+
+
+        .section {
+
+            margin-bottom: 32px;
+
+            scroll-margin-top: 95px;
+        }
+
+
+        .section-title {
+
+            margin-bottom: 15px;
+        }
+
+
+        .section-title h2 {
+
+            font-size: 18px;
+
+            color: #111827;
+        }
+
+
+        .section-title p {
+
+            color: #6b7280;
+
+            font-size: 12px;
+
+            margin-top: 4px;
+        }
+
+
+        /* ==========================================
+           CARDS
+        ========================================== */
+
+        .card {
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 13px;
+
+            padding: 20px;
+        }
+
+
+        /* ==========================================
+           STATS
+        ========================================== */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+        }
+
+
+        .stat-card {
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 13px;
+
+            padding: 18px;
+
+            min-height: 118px;
+
+            display: flex;
+
+            justify-content: space-between;
+        }
+
+
+        .stat-label {
+
+            color: #6b7280;
+
+            font-size: 11px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .stat-value {
+
+            color: #111827;
+
+            font-size: 23px;
+
+            font-weight: 800;
+        }
+
+
+        .stat-text {
+
+            color: #9ca3af;
+
+            font-size: 10px;
+
+            margin-top: 6px;
+        }
+
+
+        .stat-icon {
+
+            width: 40px;
+            height: 40px;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 19px;
+        }
+
+
+        .green {
+            background: #dcfce7;
+        }
+
+
+        .blue {
+            background: #dbeafe;
+        }
+
+
+        .orange {
+            background: #ffedd5;
+        }
+
+
+        .purple {
+            background: #f3e8ff;
+        }
+
+
+        /* ==========================================
+           BOOKING FORM
+        ========================================== */
+
+        .booking-form-card {
+
+            margin-bottom: 18px;
+        }
+
+
+        .booking-form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 14px;
+        }
+
+
+        .booking-form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 6px;
+        }
+
+
+        .booking-form-group label {
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            color: #374151;
+        }
+
+
+        .booking-form-group input,
+        .booking-form-group select {
+
+            width: 100%;
+
+            padding: 11px 12px;
+
+            border:
+                1px solid #d1d5db;
+
+            border-radius: 9px;
+
+            background: white;
+
+            color: #374151;
+
+            font-size: 12px;
+
+            outline: none;
+        }
+
+
+        .booking-form-group input:focus,
+        .booking-form-group select:focus {
+
+            border-color: #22c55e;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(34,197,94,.10);
+        }
+
+
+        .booking-submit {
+
+            margin-top: 16px;
+
+            width: 100%;
+
+            border: none;
+
+            border-radius: 9px;
+
+            padding: 12px 16px;
+
+            background: #16803c;
+
+            color: white;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        .booking-submit:hover {
+
+            background: #116b31;
+        }
+
+
+        .booking-submit:disabled {
+
+            opacity: .65;
+
+            cursor: not-allowed;
+        }
+
+
+        .booking-form-message {
+
+            display: none;
+
+            margin-top: 12px;
+
+            padding: 10px 12px;
+
+            border-radius: 8px;
+
+            font-size: 11px;
+        }
+
+
+        .booking-form-message.success {
+
+            display: block;
+
+            color: #166534;
+
+            background: #f0fdf4;
+
+            border:
+                1px solid #bbf7d0;
+        }
+
+
+        .booking-form-message.error {
+
+            display: block;
+
+            color: #b42318;
+
+            background: #fef2f2;
+
+            border:
+                1px solid #fecaca;
+        }
+
+
+        /* ==========================================
+           BOOKING DISPLAY
+        ========================================== */
+
+        .booking-header {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                flex-start;
+
+            gap: 20px;
+        }
+
+
+        .booking-label {
+
+            color: #9ca3af;
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            font-weight: 700;
+
+            margin-bottom: 5px;
+        }
+
+
+        .booking-id {
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+            color: #166534;
+        }
+
+
+        .booking-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 12px;
+
+            margin-top: 20px;
+        }
+
+
+        .booking-info {
+
+            padding: 13px;
+
+            background: #f9fafb;
+
+            border-radius: 9px;
+        }
+
+
+        .info-label {
+
+            font-size: 10px;
+
+            color: #9ca3af;
+
+            margin-bottom: 5px;
+        }
+
+
+        .info-value {
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #374151;
+        }
+
+
+        /* ==========================================
+           STATUS
+        ========================================== */
+
+        .badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+        }
+
+
+        .badge-green {
+
+            background: #dcfce7;
+
+            color: #15803d;
+        }
+
+
+        .badge-blue {
+
+            background: #dbeafe;
+
+            color: #1d4ed8;
+        }
+
+
+        .badge-orange {
+
+            background: #ffedd5;
+
+            color: #c2410c;
+        }
+
+
+        .badge-yellow {
+
+            background: #fef3c7;
+
+            color: #a16207;
+        }
+
+
+        .badge-purple {
+
+            background: #f3e8ff;
+
+            color: #7e22ce;
+        }
+
+
+        .badge-gray {
+
+            background: #f3f4f6;
+
+            color: #4b5563;
+        }
+
+
+        /* ==========================================
+           JOURNEY
+        ========================================== */
+
+        .journey {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            overflow-x: auto;
+
+            padding:
+                5px 0 15px;
+        }
+
+
+        .journey-step {
+
+            min-width: 125px;
+
+            text-align: center;
+
+            position: relative;
+        }
+
+
+        .journey-circle {
+
+            width: 43px;
+            height: 43px;
+
+            border-radius: 50%;
+
+            background: #f3f4f6;
+
+            color: #9ca3af;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin: auto;
+
+            font-size: 18px;
+
+            border:
+                2px solid #e5e7eb;
+        }
+
+
+        .journey-step.completed
+        .journey-circle {
+
+            background: #dcfce7;
+
+            border-color: #86efac;
+
+            color: #15803d;
+        }
+
+
+        .journey-step.current
+        .journey-circle {
+
+            background: #dbeafe;
+
+            border-color: #93c5fd;
+
+            color: #1d4ed8;
+
+            box-shadow:
+                0 0 0 5px
+                rgba(59,130,246,.08);
+        }
+
+
+        .journey-name {
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            margin-top: 8px;
+
+            color: #6b7280;
+        }
+
+
+        .journey-step.completed
+        .journey-name,
+
+        .journey-step.current
+        .journey-name {
+
+            color: #374151;
+        }
+
+
+        .journey-line {
+
+            width: 65px;
+
+            height: 2px;
+
+            background: #e5e7eb;
+
+            margin-top: 21px;
+
+            flex-shrink: 0;
+        }
+
+
+        .journey-line.done {
+
+            background: #86efac;
+        }
+
+
+        /* ==========================================
+           TWO COLUMNS
+        ========================================== */
+
+        .two-column {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 17px;
+        }
+
+
+        /* ==========================================
+           QUALITY
+        ========================================== */
+
+        .quality-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 10px;
+        }
+
+
+        .quality-item {
+
+            background: #f9fafb;
+
+            border-radius: 9px;
+
+            padding: 13px;
+
+            text-align: center;
+        }
+
+
+        .quality-item .number {
+
+            font-size: 18px;
+
+            font-weight: 800;
+
+            color: #111827;
+        }
+
+
+        .quality-item .label {
+
+            font-size: 10px;
+
+            color: #6b7280;
+
+            margin-top: 4px;
+        }
+
+
+        /* ==========================================
+           PAYMENT
+        ========================================== */
+
+        .payment-box {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            gap: 20px;
+        }
+
+
+        .payment-amount {
+
+            font-size: 28px;
+
+            font-weight: 800;
+
+            color: #166534;
+        }
+
+
+        .payment-label {
+
+            font-size: 11px;
+
+            color: #6b7280;
+
+            margin-bottom: 5px;
+        }
+
+
+        /* ==========================================
+           QUEUE
+        ========================================== */
+
+        .queue-box {
+
+            text-align: center;
+
+            padding: 25px;
+        }
+
+
+        .queue-number {
+
+            font-size: 42px;
+
+            font-weight: 800;
+
+            color: #166534;
+        }
+
+
+        .queue-label {
+
+            font-size: 12px;
+
+            color: #6b7280;
+
+            margin-top: 5px;
+        }
+
+
+        .queue-details {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+
+        .queue-detail {
+
+            background: #f9fafb;
+
+            padding: 12px;
+
+            border-radius: 9px;
+        }
+
+
+        .queue-detail strong {
+
+            display: block;
+
+            font-size: 15px;
+
+            color: #111827;
+        }
+
+
+        .queue-detail span {
+
+            display: block;
+
+            font-size: 10px;
+
+            color: #6b7280;
+
+            margin-top: 3px;
+        }
+
+
+        /* ==========================================
+           NOTIFICATIONS
+        ========================================== */
+
+        .notifications {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+
+        .notification {
+
+            display: flex;
+
+            gap: 12px;
+
+            padding: 13px;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 9px;
+
+            background: white;
+        }
+
+
+        .notification-icon {
+
+            width: 34px;
+            height: 34px;
+
+            border-radius: 9px;
+
+            background: #dcfce7;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+        }
+
+
+        .notification-title {
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .notification-message {
+
+            font-size: 11px;
+
+            color: #6b7280;
+
+            line-height: 1.5;
+
+            margin-top: 3px;
+        }
+
+
+        .notification-date {
+
+            font-size: 9px;
+
+            color: #9ca3af;
+
+            margin-top: 5px;
+        }
+
+
+        /* ==========================================
+           HISTORY
+        ========================================== */
+
+        .history-item {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            padding: 13px 0;
+
+            border-bottom:
+                1px solid #f0f0f0;
+
+            gap: 15px;
+        }
+
+
+        .history-item:last-child {
+
+            border-bottom: none;
+        }
+
+
+        .history-main {
+
+            min-width: 0;
+        }
+
+
+        .history-id {
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            color: #166534;
+        }
+
+
+        .history-info {
+
+            font-size: 10px;
+
+            color: #6b7280;
+
+            margin-top: 3px;
+        }
+
+
+        .history-amount {
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            color: #166534;
+
+            white-space: nowrap;
+        }
+
+
+        /* ==========================================
+           PROFILE
+        ========================================== */
+
+        .profile-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 12px;
+        }
+
+
+        .profile-item {
+
+            background: #f9fafb;
+
+            padding: 13px;
+
+            border-radius: 9px;
+        }
+
+
+        .profile-item .label {
+
+            font-size: 10px;
+
+            color: #9ca3af;
+
+            margin-bottom: 5px;
+        }
+
+
+        .profile-item .value {
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #374151;
+        }
+
+
+        /* ==========================================
+           EMPTY STATE
+        ========================================== */
+
+        .empty {
+
+            text-align: center;
+
+            padding: 35px 20px;
+
+            color: #9ca3af;
+
+            font-size: 12px;
+        }
+
+
+        .empty-icon {
+
+            font-size: 28px;
+
+            margin-bottom: 10px;
+        }
+
+
+        /* ==========================================
+           TOAST
+        ========================================== */
+
+        .toast {
+
+            position: fixed;
+
+            right: 25px;
+
+            bottom: 25px;
+
+            background: #166534;
+
+            color: white;
+
+            padding: 13px 18px;
+
+            border-radius: 10px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,.15);
+
+            transform:
+                translateY(100px);
+
+            opacity: 0;
+
+            transition: .3s;
+
+            z-index: 9999;
+        }
+
+
+        .toast.show {
+
+            transform:
+                translateY(0);
+
+            opacity: 1;
+        }
+
+
+        /* ==========================================
+           RESPONSIVE
+        ========================================== */
+
+        @media(max-width: 1100px) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .booking-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .quality-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media(max-width: 800px) {
+
+            .sidebar {
+
+                width: 220px;
+            }
+
+
+            .main {
+
+                margin-left: 220px;
+
+                width:
+                    calc(100% - 220px);
+            }
+
+
+            .topbar {
+
+                padding:
+                    0 18px;
+            }
+
+
+            .content {
+
+                padding:
+                    20px 18px 40px;
+            }
+
+
+            .two-column {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .booking-form-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .profile-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media(max-width: 650px) {
+
+            .sidebar {
+
+                position: static;
+
+                width: 100%;
+
+                height: auto;
+            }
+
+
+            .app {
+
+                display: block;
+            }
+
+
+            .main {
+
+                margin-left: 0;
+
+                width: 100%;
+            }
+
+
+            .nav {
+
+                max-height: 300px;
+            }
+
+
+            .stats {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .booking-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .quality-grid {
+
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+
+            .topbar {
+
+                position: static;
+
+                height: auto;
+
+                padding:
+                    18px;
+
+                gap: 15px;
+
+                align-items:
+                    flex-start;
+            }
+
+
+            .top-actions {
+
+                flex-direction:
+                    column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- ==========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside class="sidebar">
+
+
+        <div class="brand">
+
+            <div class="brand-row">
+
+                <div class="brand-icon">
+                    🌾
+                </div>
+
+                <div>
+
+                    <h2>
+                        Smart Farmer
+                    </h2>
+
+                    <p>
+                        Farmer Procurement Portal
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <nav class="nav">
+
+
+            <div class="nav-label">
+                My Dashboard
+            </div>
+
+
+            <button
+                class="nav-item active"
+                onclick="scrollToSection('overview', this)"
+            >
+
+                <span class="nav-icon">
+                    📊
+                </span>
+
+                Overview
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="scrollToSection('bookingSection', this)"
+            >
+
+                <span class="nav-icon">
+                    📅
+                </span>
+
+                My Booking
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="scrollToSection('journeySection', this)"
+            >
+
+                <span class="nav-icon">
+                    🌾
+                </span>
+
+                Procurement Journey
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="scrollToSection('qualitySection', this)"
+            >
+
+                <span class="nav-icon">
+                    🔬
+                </span>
+
+                Quality Check
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="scrollToSection('queueSection', this)"
+            >
+
+                <span class="nav-icon">
+                    🚜
+                </span>
+
+                Live Queue
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="scrollToSection('paymentSection', this)"
+            >
+
+                <span class="nav-icon">
+                    💰
+                </span>
+
+                Payment
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="scrollToSection('notificationSection', this)"
+            >
+
+                <span class="nav-icon">
+                    🔔
+                </span>
+
+                Notifications
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="scrollToSection('historySection', this)"
+            >
+
+                <span class="nav-icon">
+                    📜
+                </span>
+
+                History
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="scrollToSection('profileSection', this)"
+            >
+
+                <span class="nav-icon">
+                    👤
+                </span>
+
+                Profile
+
+            </button>
+
+
+        </nav>
+
+
+        <div class="profile-card">
+
+
+            <div class="profile-row">
+
+                <div
+                    class="avatar"
+                    id="sidebarAvatar"
+                >
+                    F
+                </div>
+
+
+                <div>
+
+                    <div
+                        class="profile-name"
+                        id="sidebarName"
+                    >
+                        Farmer
+                    </div>
+
+                    <div
+                        class="profile-id"
+                        id="sidebarFarmerId"
+                    >
+                        Farmer ID
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="logout-btn"
+                onclick="logout()"
+            >
+                🚪 Logout
+            </button>
+
+
+        </div>
+
+
+    </aside>
+
+
+    <!-- ==========================================
+         MAIN
+    ========================================== -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+
+            <div class="welcome">
+
+                <h1 id="welcomeTitle">
+                    Welcome, Farmer 👋
+                </h1>
+
+                <p>
+                    Track your procurement from booking to payment
+                </p>
+
+            </div>
+
+
+            <div class="top-actions">
+
+                <div class="online">
+
+                    <span class="online-dot"></span>
+
+                    Live System
+
+                </div>
+
+
+                <button
+                    class="refresh-btn"
+                    onclick="loadEverything()"
+                >
+                    🔄 Refresh
+                </button>
+
+            </div>
+
+
+        </header>
+
+
+        <div class="content">
+
+
+            <!-- ======================================
+                 OVERVIEW
+            ======================================= -->
+
+            <section
+                class="section"
+                id="overview"
+            >
+
+
+                <div class="section-title">
+
+                    <h2>
+                        Dashboard Overview
+                    </h2>
+
+                    <p>
+                        Your current procurement information
+                    </p>
+
+                </div>
+
+
+                <div class="stats">
+
+
+                    <div class="stat-card">
+
+                        <div>
+
+                            <div class="stat-label">
+                                Current Booking
+                            </div>
+
+                            <div
+                                class="stat-value"
+                                id="statBooking"
+                            >
+                                —
+                            </div>
+
+                            <div class="stat-text">
+                                Latest booking
+                            </div>
+
+                        </div>
+
+                        <div class="stat-icon green">
+                            📅
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div>
+
+                            <div class="stat-label">
+                                Queue Position
+                            </div>
+
+                            <div
+                                class="stat-value"
+                                id="statQueue"
+                            >
+                                —
+                            </div>
+
+                            <div class="stat-text">
+                                Live position
+                            </div>
+
+                        </div>
+
+                        <div class="stat-icon blue">
+                            🚜
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div>
+
+                            <div class="stat-label">
+                                Produce Weight
+                            </div>
+
+                            <div
+                                class="stat-value"
+                                id="statWeight"
+                            >
+                                —
+                            </div>
+
+                            <div class="stat-text">
+                                Actual net weight
+                            </div>
+
+                        </div>
+
+                        <div class="stat-icon orange">
+                            ⚖️
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div>
+
+                            <div class="stat-label">
+                                Expected / Final Payment
+                            </div>
+
+                            <div
+                                class="stat-value"
+                                id="statPayment"
+                            >
+                                ₹0
+                            </div>
+
+                            <div class="stat-text">
+                                Procurement value
+                            </div>
+
+                        </div>
+
+                        <div class="stat-icon purple">
+                            💰
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- ======================================
+                 BOOKING
+            ======================================= -->
+
+            <section
+                class="section"
+                id="bookingSection"
+            >
+
+
+                <div class="section-title">
+
+                    <h2>
+                        📅 Book a Procurement Slot
+                    </h2>
+
+                    <p>
+                        Create a new procurement appointment. You can book multiple slots.
+                    </p>
+
+                </div>
+
+
+                <div class="card booking-form-card">
+
+
+                    <form id="bookingForm">
+
+
+                        <div class="booking-form-grid">
+
+
+                            <div class="booking-form-group">
+
+                                <label for="bookingCrop">
+                                    Crop
+                                </label>
+
+                                <select
+                                    id="bookingCrop"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select crop
+                                    </option>
+
+                                    <option value="Paddy">
+                                        Paddy
+                                    </option>
+
+                                    <option value="Wheat">
+                                        Wheat
+                                    </option>
+
+                                    <option value="Maize">
+                                        Maize
+                                    </option>
+
+                                    <option value="Cotton">
+                                        Cotton
+                                    </option>
+
+                                    <option value="Other">
+                                        Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="booking-form-group">
+
+                                <label for="bookingVariety">
+                                    Variety
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="bookingVariety"
+                                    placeholder="e.g. BPT 5204"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="booking-form-group">
+
+                                <label for="bookingQuantity">
+                                    Quantity (Quintals)
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="bookingQuantity"
+                                    min="0.1"
+                                    step="0.01"
+                                    placeholder="e.g. 25"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="booking-form-group">
+
+                                <label for="bookingCentre">
+                                    Procurement Centre
+                                </label>
+
+                                <select
+                                    id="bookingCentre"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select centre
+                                    </option>
+
+                                    <option value="Main Procurement Centre">
+                                        Main Procurement Centre
+                                    </option>
+
+                                    <option value="Village Procurement Centre">
+                                        Village Procurement Centre
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="booking-form-group">
+
+                                <label for="bookingDate">
+                                    Preferred Date
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="bookingDate"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="booking-form-group">
+
+                                <label for="bookingTime">
+                                    Preferred Time
+                                </label>
+
+                                <select
+                                    id="bookingTime"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select time
+                                    </option>
+
+                                    <option value="09:00 AM - 10:00 AM">
+                                        09:00 AM - 10:00 AM
+                                    </option>
+
+                                    <option value="10:00 AM - 11:00 AM">
+                                        10:00 AM - 11:00 AM
+                                    </option>
+
+                                    <option value="11:00 AM - 12:00 PM">
+                                        11:00 AM - 12:00 PM
+                                    </option>
+
+                                    <option value="12:00 PM - 01:00 PM">
+                                        12:00 PM - 01:00 PM
+                                    </option>
+
+                                    <option value="02:00 PM - 03:00 PM">
+                                        02:00 PM - 03:00 PM
+                                    </option>
+
+                                    <option value="03:00 PM - 04:00 PM">
+                                        03:00 PM - 04:00 PM
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="booking-form-group">
+
+                                <label for="bookingVehicle">
+                                    Vehicle Type
+                                </label>
+
+                                <select
+                                    id="bookingVehicle"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select vehicle
+                                    </option>
+
+                                    <option value="Tractor">
+                                        Tractor
+                                    </option>
+
+                                    <option value="Truck">
+                                        Truck
+                                    </option>
+
+                                    <option value="Auto">
+                                        Auto
+                                    </option>
+
+                                    <option value="Other">
+                                        Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="booking-form-group">
+
+                                <label for="bookingVehicleNumber">
+                                    Vehicle Number
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="bookingVehicleNumber"
+                                    placeholder="e.g. AP 39 5677"
+                                    required
+                                >
+
+                            </div>
+
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="booking-submit"
+                            id="bookingSubmit"
+                        >
+
+                            📅 Book Procurement Slot
+
+                        </button>
+
+
+                        <div
+                            id="bookingFormMessage"
+                            class="booking-form-message"
+                        ></div>
+
+
+                    </form>
+
+
+                </div>
+
+
+                <div class="section-title">
+
+                    <h2>
+                        📋 My Current Booking
+                    </h2>
+
+                    <p>
+                        Your latest procurement appointment
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="bookingContainer"
+                    class="card"
+                >
+
+                    <div class="empty">
+
+                        <div class="empty-icon">
+                            📅
+                        </div>
+
+                        Loading booking...
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- ======================================
+                 JOURNEY
+            ======================================= -->
+
+            <section
+                class="section"
+                id="journeySection"
+            >
+
+
+                <div class="section-title">
+
+                    <h2>
+                        🌾 Procurement Journey
+                    </h2>
+
+                    <p>
+                        Follow every stage of your produce procurement
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="journeyContainer"
+                    class="card"
+                >
+
+                    <div class="empty">
+                        Loading journey...
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- ======================================
+                 QUALITY + QUEUE
+            ======================================= -->
+
+            <div class="two-column">
+
+
+                <section
+                    class="section"
+                    id="qualitySection"
+                >
+
+
+                    <div class="section-title">
+
+                        <h2>
+                            🔬 Quality Check
+                        </h2>
+
+                        <p>
+                            Quality information recorded at the procurement centre
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        id="qualityContainer"
+                        class="card"
+                    >
+
+                        <div class="empty">
+                            Loading quality information...
+                        </div>
+
+                    </div>
+
+
+                </section>
+
+
+                <section
+                    class="section"
+                    id="queueSection"
+                >
+
+
+                    <div class="section-title">
+
+                        <h2>
+                            🚜 Live Queue
+                        </h2>
+
+                        <p>
+                            Track your position at the procurement centre
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        id="queueContainer"
+                        class="card"
+                    >
+
+                        <div class="empty">
+                            Loading queue...
+                        </div>
+
+                    </div>
+
+
+                </section>
+
+
+            </div>
+
+
+            <!-- ======================================
+                 PAYMENT
+            ======================================= -->
+
+            <section
+                class="section"
+                id="paymentSection"
+            >
+
+
+                <div class="section-title">
+
+                    <h2>
+                        💰 Payment
+                    </h2>
+
+                    <p>
+                        Procurement payment status
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="paymentContainer"
+                    class="card"
+                >
+
+                    <div class="empty">
+                        Loading payment information...
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- ======================================
+                 NOTIFICATIONS
+            ======================================= -->
+
+            <section
+                class="section"
+                id="notificationSection"
+            >
+
+
+                <div class="section-title">
+
+                    <h2>
+                        🔔 Notifications
+                    </h2>
+
+                    <p>
+                        Updates from the procurement centre
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="notificationsContainer"
+                    class="notifications"
+                >
+
+                    <div class="card empty">
+                        Loading notifications...
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- ======================================
+                 HISTORY
+            ======================================= -->
+
+            <section
+                class="section"
+                id="historySection"
+            >
+
+
+                <div class="section-title">
+
+                    <h2>
+                        📜 Procurement History
+                    </h2>
+
+                    <p>
+                        Your completed procurement records
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="historyContainer"
+                    class="card"
+                >
+
+                    <div class="empty">
+                        Loading history...
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- ======================================
+                 PROFILE
+            ======================================= -->
+
+            <section
+                class="section"
+                id="profileSection"
+            >
+
+
+                <div class="section-title">
+
+                    <h2>
+                        👤 My Profile
+                    </h2>
+
+                    <p>
+                        Your registered farmer information
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="profileContainer"
+                    class="card"
+                >
+
+                    <div class="empty">
+                        Loading profile...
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+<script>
+
+
+    // ==========================================
+    // GLOBAL VARIABLES
+    // ==========================================
+
+    let farmer =
+        JSON.parse(
+            localStorage.getItem("farmer")
+        );
+
+
+    let currentBooking = null;
+
+    let currentQuality = null;
+
+    let currentProcurement = null;
+
+    let currentPayment = null;
+
+
+    // ==========================================
+    // LOGIN CHECK
+    // ==========================================
+
+    if (!farmer) {
+
+        window.location.href =
+            "login.html";
+
+    }
+
+
+    // ==========================================
+    // PAGE LOAD
+    // ==========================================
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+            if (!farmer) {
+                return;
+            }
+
+
+            displayFarmerBasicInfo();
+
+            setupBookingForm();
+
+            loadEverything();
+
+            setInterval(
+                loadEverything,
+                10000
+            );
+
+        }
+    );
+
+
+    // ==========================================
+    // BASIC FARMER INFORMATION
+    // ==========================================
+
+    function displayFarmerBasicInfo() {
+
+        if (!farmer) {
+            return;
+        }
+
+
+        const name =
+            farmer.name ||
+            "Farmer";
+
+
+        document.getElementById(
+            "welcomeTitle"
+        ).textContent =
+            `Welcome, ${name} 👋`;
+
+
+        document.getElementById(
+            "sidebarName"
+        ).textContent =
+            name;
+
+
+        document.getElementById(
+            "sidebarFarmerId"
+        ).textContent =
+            `Farmer ID: ${
+                farmer.farmer_id ||
+                farmer.id ||
+                "N/A"
+            }`;
+
+
+        document.getElementById(
+            "sidebarAvatar"
+        ).textContent =
+            name
+                .charAt(0)
+                .toUpperCase();
+
+    }
+
+
+    // ==========================================
+    // NAVIGATION
+    // ==========================================
+
+    function scrollToSection(
+        sectionId,
+        button
+    ) {
+
+        const section =
+            document.getElementById(
+                sectionId
+            );
+
+
+        if (section) {
+
+            section.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        }
+
+
+        document
+            .querySelectorAll(
+                ".nav-item"
+            )
+            .forEach(
+                item => {
+                    item.classList.remove(
+                        "active"
+                    );
+                }
+            );
+
+
+        if (button) {
+
+            button.classList.add(
+                "active"
+            );
+
+        }
+
+    }
+
+
+    // ==========================================
+    // BOOKING FORM SETUP
+    // ==========================================
+
+    function setupBookingForm() {
+
+        const form =
+            document.getElementById(
+                "bookingForm"
+            );
+
+
+        if (!form) {
+            return;
+        }
+
+
+        setMinimumBookingDate();
+
+
+        form.addEventListener(
+            "submit",
+            submitBooking
+        );
+
+    }
+
+
+    // ==========================================
+    // MINIMUM BOOKING DATE
+    // ==========================================
+
+    function setMinimumBookingDate() {
+
+        const dateInput =
+            document.getElementById(
+                "bookingDate"
+            );
+
+
+        if (!dateInput) {
+            return;
+        }
+
+
+        const today =
+            new Date();
+
+
+        const year =
+            today.getFullYear();
+
+
+        const month =
+            String(
+                today.getMonth() + 1
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const day =
+            String(
+                today.getDate()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        dateInput.min =
+            `${year}-${month}-${day}`;
+
+    }
+
+
+    // ==========================================
+    // SUBMIT NEW BOOKING
+    // ==========================================
+
+    async function submitBooking(
+        event
+    ) {
+
+        event.preventDefault();
+
+
+        if (
+            !farmer ||
+            !farmer.id
+        ) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        const submitButton =
+            document.getElementById(
+                "bookingSubmit"
+            );
+
+
+        const message =
+            document.getElementById(
+                "bookingFormMessage"
+            );
+
+
+        const crop =
+            document.getElementById(
+                "bookingCrop"
+            ).value;
+
+
+        const variety =
+            document.getElementById(
+                "bookingVariety"
+            ).value.trim();
+
+
+        const quintals =
+            Number(
+                document.getElementById(
+                    "bookingQuantity"
+                ).value
+            );
+
+
+        const centre =
+            document.getElementById(
+                "bookingCentre"
+            ).value;
+
+
+        const date =
+            document.getElementById(
+                "bookingDate"
+            ).value;
+
+
+        const time =
+            document.getElementById(
+                "bookingTime"
+            ).value;
+
+
+        const vehicle =
+            document.getElementById(
+                "bookingVehicle"
+            ).value;
+
+
+        const vehicle_number =
+            document.getElementById(
+                "bookingVehicleNumber"
+            ).value.trim();
+
+
+        // ======================================
+        // VALIDATION
+        // ======================================
+
+        if (
+            !crop ||
+            !variety ||
+            !Number.isFinite(
+                quintals
+            ) ||
+            quintals <= 0 ||
+            !centre ||
+            !date ||
+            !time ||
+            !vehicle ||
+            !vehicle_number
+        ) {
+
+            message.textContent =
+                "Please fill in all booking details.";
+
+            message.className =
+                "booking-form-message error";
+
+            return;
+
+        }
+
+
+        submitButton.disabled =
+            true;
+
+
+        submitButton.textContent =
+            "⏳ Booking...";
+
+
+        message.className =
+            "booking-form-message";
+
+
+        message.style.display =
+            "none";
+
+
+        try {
+
+
+            const response =
+                await fetch(
+                    "/api/bookings",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                farmer_id:
+                                    farmer.id,
+
+                                crop:
+                                    crop,
+
+                                variety:
+                                    variety,
+
+                                quintals:
+                                    quintals,
+
+                                quantity:
+                                    quintals,
+
+                                centre:
+                                    centre,
+
+                                date:
+                                    date,
+
+                                time:
+                                    time,
+
+                                vehicle:
+                                    vehicle,
+
+                                vehicle_number:
+                                    vehicle_number
+
+                            })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "Unable to create booking."
+                );
+
+            }
+
+
+            const bookingId =
+                data.booking &&
+                data.booking.booking_id
+                    ? data.booking.booking_id
+                    : "New booking";
+
+
+            message.textContent =
+                `Booking ${bookingId} created successfully. Your new slot is now active.`;
+
+
+            message.className =
+                "booking-form-message success";
+
+
+            document
+                .getElementById(
+                    "bookingForm"
+                )
+                .reset();
+
+
+            setMinimumBookingDate();
+
+
+            await loadEverything();
+
+
+            showToast(
+                "New procurement slot booked successfully."
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Booking creation error:",
+                error
+            );
+
+
+            message.textContent =
+                error.message ||
+                "Unable to create booking.";
+
+
+            message.className =
+                "booking-form-message error";
+
+
+        } finally {
+
+            submitButton.disabled =
+                false;
+
+
+            submitButton.textContent =
+                "📅 Book Procurement Slot";
+
+        }
+
+    }
+
+
+    // ==========================================
+    // LOAD EVERYTHING
+    // ==========================================
+
+    async function loadEverything() {
+
+        if (!farmer) {
+            return;
+        }
+
+
+        try {
+
+            await loadProfile();
+
+            await loadBooking();
+
+            await loadQuality();
+
+            await loadProcurement();
+
+            await loadPayments();
+
+            await loadQueue();
+
+            await loadNotifications();
+
+            await loadHistory();
+
+            renderJourney();
+
+
+        } catch (error) {
+
+            console.error(
+                "Dashboard refresh error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    // ==========================================
+    // LOAD PROFILE
+    // ==========================================
+
+    async function loadProfile() {
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/farmers/${farmer.id}`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                response.ok &&
+                data.success &&
+                data.farmer
+            ) {
+
+                farmer =
+                    data.farmer;
+
+
+                localStorage.setItem(
+                    "farmer",
+                    JSON.stringify(
+                        farmer
+                    )
+                );
+
+
+                displayFarmerBasicInfo();
+
+                renderProfile();
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Profile error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    // ==========================================
+    // LOAD LATEST BOOKING
+    // ==========================================
+
+    async function loadBooking() {
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/bookings/latest/${farmer.id}`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                response.ok &&
+                data.success &&
+                data.booking
+            ) {
+
+                currentBooking =
+                    data.booking;
+
+
+                renderBooking(
+                    currentBooking
+                );
+
+
+                document.getElementById(
+                    "statBooking"
+                ).textContent =
+                    currentBooking.booking_id;
+
+            } else {
+
+                currentBooking =
+                    null;
+
+
+                renderEmptyBooking();
+
+
+                document.getElementById(
+                    "statBooking"
+                ).textContent =
+                    "—";
+
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "Booking error:",
+                error
+            );
+
+
+            currentBooking =
+                null;
+
+
+            renderEmptyBooking();
+
+
+            document.getElementById(
+                "statBooking"
+            ).textContent =
+                "—";
+
+        }
+
+    }
+
+
+    // ==========================================
+    // RENDER BOOKING
+    // ==========================================
+
+    function renderBooking(
+        booking
+    ) {
+
+        const container =
+            document.getElementById(
+                "bookingContainer"
+            );
+
+
+        if (!booking) {
+
+            renderEmptyBooking();
+
+            return;
+
+        }
+
+
+        container.innerHTML = `
+
+            <div class="booking-header">
+
+                <div>
+
+                    <div class="booking-label">
+                        Booking ID
+                    </div>
+
+                    <div class="booking-id">
+                        ${escapeHtml(
+                            booking.booking_id
+                        )}
+                    </div>
+
+                </div>
+
+                <div>
+                    ${statusBadge(
+                        booking.status
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="booking-grid">
+
+
+                <div class="booking-info">
+
+                    <div class="info-label">
+                        Crop
+                    </div>
+
+                    <div class="info-value">
+                        ${escapeHtml(
+                            booking.crop ||
+                            "—"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="booking-info">
+
+                    <div class="info-label">
+                        Variety
+                    </div>
+
+                    <div class="info-value">
+                        ${escapeHtml(
+                            booking.variety ||
+                            "—"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="booking-info">
+
+                    <div class="info-label">
+                        Quantity
+                    </div>
+
+                    <div class="info-value">
+                        ${booking.quintals ||
+                            booking.quantity ||
+                            0} Q
+                    </div>
+
+                </div>
+
+
+                <div class="booking-info">
+
+                    <div class="info-label">
+                        Token
+                    </div>
+
+                    <div class="info-value">
+                        ${escapeHtml(
+                            booking.token ||
+                            "—"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="booking-info">
+
+                    <div class="info-label">
+                        Procurement Centre
+                    </div>
+
+                    <div class="info-value">
+                        ${escapeHtml(
+                            booking.centre ||
+                            "—"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="booking-info">
+
+                    <div class="info-label">
+                        Date
+                    </div>
+
+                    <div class="info-value">
+                        ${escapeHtml(
+                            booking.date ||
+                            "—"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="booking-info">
+
+                    <div class="info-label">
+                        Time
+                    </div>
+
+                    <div class="info-value">
+                        ${escapeHtml(
+                            booking.time ||
+                            "—"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="booking-info">
+
+                    <div class="info-label">
+                        Vehicle
+                    </div>
+
+                    <div class="info-value">
+                        ${escapeHtml(
+                            booking.vehicle_number ||
+                            booking.vehicle ||
+                            "—"
+                        )}
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        `;
+
+    }
+
+
+    // ==========================================
+    // EMPTY BOOKING
+    // ==========================================
+
+    function renderEmptyBooking() {
+
+        const container =
+            document.getElementById(
+                "bookingContainer"
+            );
+
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📅
+                </div>
+
+                You don't have a procurement
+                booking yet.
+
+                <br><br>
+
+                Use the booking form above
+                to create your appointment.
+
+            </div>
+
+        `;
+
+    }
+
+
+    // ==========================================
+    // LOAD QUALITY
+    // ==========================================
+
+    async function loadQuality() {
+
+        currentQuality =
+            null;
+
+
+        if (!currentBooking) {
+
+            renderEmptyQuality();
+
+            return;
+
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/admin/quality"
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                renderEmptyQuality();
+
+                return;
+
+            }
+
+
+            const records =
+                data.quality ||
+                [];
+
+
+            const record =
+                records.find(
+                    item =>
+                        String(
+                            item.booking_id
+                        ) ===
+                        String(
+                            currentBooking.booking_id
+                        )
+                );
+
+
+            if (record) {
+
+                currentQuality =
+                    record;
+
+
+                renderQuality(
+                    record
+                );
+
+            } else {
+
+                renderEmptyQuality();
+
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "Quality error:",
+                error
+            );
+
+
+            renderEmptyQuality();
+
+        }
+
+    }
+
+
+    // ==========================================
+    // RENDER QUALITY
+    // ==========================================
+
+    function renderQuality(
+        record
+    ) {
+
+        const container =
+            document.getElementById(
+                "qualityContainer"
+            );
+
+
+        container.innerHTML = `
+
+            <div class="quality-grid">
+
+
+                <div class="quality-item">
+
+                    <div class="number">
+                        ${record.moisture ?? "—"}%
+                    </div>
+
+                    <div class="label">
+                        Moisture
+                    </div>
+
+                </div>
+
+
+                <div class="quality-item">
+
+                    <div class="number">
+                        ${record.foreign_matter ?? "—"}%
+                    </div>
+
+                    <div class="label">
+                        Foreign Matter
+                    </div>
+
+                </div>
+
+
+                <div class="quality-item">
+
+                    <div class="number">
+                        ${record.damaged_grains ?? "—"}%
+                    </div>
+
+                    <div class="label">
+                        Damaged Grains
+                    </div>
+
+                </div>
+
+
+                <div class="quality-item">
+
+                    <div class="number">
+                        ${escapeHtml(
+                            record.grade ||
+                            "—"
+                        )}
+                    </div>
+
+                    <div class="label">
+                        Grade
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        `;
+
+    }
+
+
+    // ==========================================
+    // EMPTY QUALITY
+    // ==========================================
+
+    function renderEmptyQuality() {
+
+        const container =
+            document.getElementById(
+                "qualityContainer"
+            );
+
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    🔬
+                </div>
+
+                Quality inspection has not
+                been completed yet.
+
+                <br><br>
+
+                Your moisture and quality
+                result will appear here.
+
+            </div>
+
+        `;
+
+    }
+
+
+    // ==========================================
+    // LOAD PROCUREMENT
+    // ==========================================
+
+    async function loadProcurement() {
+
+        currentProcurement =
+            null;
+
+
+        if (!currentBooking) {
+
+            return;
+
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/farmers/${farmer.id}/procurement`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                return;
+
+            }
+
+
+            const records =
+                data.procurement ||
+                [];
+
+
+            const record =
+                records.find(
+                    item =>
+                        String(
+                            item.booking_id
+                        ) ===
+                        String(
+                            currentBooking.booking_id
+                        )
+                );
+
+
+            if (record) {
+
+                currentProcurement =
+                    record;
+
+
+                const weight =
+                    Number(
+                        record.net_weight
+                    );
+
+
+                document.getElementById(
+                    "statWeight"
+                ).textContent =
+                    Number.isFinite(weight)
+                        ? `${weight.toFixed(2)} Q`
+                        : "—";
+
+            } else {
+
+                document.getElementById(
+                    "statWeight"
+                ).textContent =
+                    "—";
+
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "Procurement error:",
+                error
+            );
+
+
+            document.getElementById(
+                "statWeight"
+            ).textContent =
+                "—";
+
+        }
+
+    }
+
+
+    // ==========================================
+    // LOAD PAYMENTS
+    // ==========================================
+
+    async function loadPayments() {
+
+        currentPayment =
+            null;
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/farmers/${farmer.id}/payments`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                renderEmptyPayment();
+
+                return;
+
+            }
+
+
+            const records =
+                data.payments ||
+                [];
+
+
+            if (
+                currentBooking
+            ) {
+
+                currentPayment =
+                    records.find(
+                        item =>
+                            String(
+                                item.booking_id
+                            ) ===
+                            String(
+                                currentBooking.booking_id
+                            )
+                    ) || null;
+
+            }
+
+
+            if (currentPayment) {
+
+                renderPayment(
+                    currentPayment
+                );
+
+            } else {
+
+                renderEmptyPayment();
+
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "Payment error:",
+                error
+            );
+
+
+            renderEmptyPayment();
+
+        }
+
+    }
+
+
+    // ==========================================
+    // RENDER PAYMENT
+    // ==========================================
+
+    function renderPayment(
+        payment
+    ) {
+
+        const container =
+            document.getElementById(
+                "paymentContainer"
+            );
+
+
+        const amount =
+            Number(
+                payment.amount
+            ) || 0;
+
+
+        document.getElementById(
+            "statPayment"
+        ).textContent =
+            formatCurrency(
+                amount
+            );
+
+
+        let statusClass =
+            "badge-gray";
+
+
+        const status =
+            String(
+                payment.payment_status ||
+                ""
+            ).toLowerCase();
+
+
+        if (
+            status.includes(
+                "completed"
+            )
+        ) {
+
+            statusClass =
+                "badge-green";
+
+        } else if (
+            status.includes(
+                "processing"
+            )
+        ) {
+
+            statusClass =
+                "badge-blue";
+
+        }
+
+
+        container.innerHTML = `
+
+            <div class="payment-box">
+
+
+                <div>
+
+                    <div class="payment-label">
+                        Payment Amount
+                    </div>
+
+                    <div class="payment-amount">
+                        ${formatCurrency(
+                            amount
+                        )}
+                    </div>
+
+                    <div
+                        style="
+                            font-size:11px;
+                            color:#6b7280;
+                            margin-top:8px;
+                        "
+                    >
+
+                        Booking:
+                        ${escapeHtml(
+                            payment.booking_id ||
+                            currentBooking?.booking_id ||
+                            "—"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <span
+                        class="badge ${statusClass}"
+                    >
+
+                        ${
+                            status.includes(
+                                "completed"
+                            )
+                                ? "✓ Payment Completed"
+                                : status.includes(
+                                    "processing"
+                                )
+                                    ? "⏳ Payment Processing"
+                                    : escapeHtml(
+                                        payment.payment_status ||
+                                        "Pending"
+                                    )
+                        }
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        `;
+
+    }
+
+
+    // ==========================================
+    // EMPTY PAYMENT
+    // ==========================================
+
+    function renderEmptyPayment() {
+
+        document.getElementById(
+            "statPayment"
+        ).textContent =
+            currentBooking
+                ? formatCurrency(
+                    (
+                        Number(
+                            currentBooking.quintals ||
+                            currentBooking.quantity ||
+                            0
+                        ) * 2300
+                    )
+                )
+                : "₹0";
+
+
+        const container =
+            document.getElementById(
+                "paymentContainer"
+            );
+
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    💰
+                </div>
+
+                Payment information will
+                appear after procurement.
+
+                <br><br>
+
+                Expected amount is calculated
+                using the current demo MSP rate.
+
+            </div>
+
+        `;
+
+    }
+
+
+    // ==========================================
+    // LOAD QUEUE
+    // ==========================================
+
+    async function loadQueue() {
+
+        const container =
+            document.getElementById(
+                "queueContainer"
+            );
+
+
+        if (!currentBooking) {
+
+            container.innerHTML = `
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        🚜
+                    </div>
+
+                    No active booking.
+
+                </div>
+
+            `;
+
+
+            document.getElementById(
+                "statQueue"
+            ).textContent =
+                "—";
+
+
+            return;
+
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/queue/booking/${encodeURIComponent(
+                        currentBooking.booking_id
+                    )}`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                response.ok &&
+                data.success
+            ) {
+
+                renderQueue(
+                    data
+                );
+
+                return;
+
+            }
+
+
+            await calculateLocalQueue();
+
+
+        } catch (error) {
+
+            console.error(
+                "Queue error:",
+                error
+            );
+
+
+            await calculateLocalQueue();
+
+        }
+
+    }
+
+
+    // ==========================================
+    // RENDER QUEUE
+    // ==========================================
+
+    function renderQueue(
+        data
+    ) {
+
+        const container =
+            document.getElementById(
+                "queueContainer"
+            );
+
+
+        const position =
+            data.position ??
+            data.queue_position ??
+            data.queuePosition ??
+            "—";
+
+
+        const waiting =
+            data.waiting ??
+            data.waiting_count ??
+            data.ahead ??
+            "—";
+
+
+        const estimated =
+            data.estimated_wait ??
+            data.estimatedWait ??
+            "—";
+
+
+        document.getElementById(
+            "statQueue"
+        ).textContent =
+            `#${position}`;
+
+
+        container.innerHTML = `
+
+            <div class="queue-box">
+
+                <div class="queue-number">
+                    #${position}
+                </div>
+
+                <div class="queue-label">
+                    Your current queue position
+                </div>
+
+
+                <div class="queue-details">
+
+
+                    <div class="queue-detail">
+
+                        <strong>
+                            ${waiting}
+                        </strong>
+
+                        <span>
+                            Farmers ahead
+                        </span>
+
+                    </div>
+
+
+                    <div class="queue-detail">
+
+                        <strong>
+                            ${estimated}
+                        </strong>
+
+                        <span>
+                            Estimated wait
+                        </span>
+
+                    </div>
+
+
+                    <div class="queue-detail">
+
+                        <strong>
+                            ${escapeHtml(
+                                currentBooking.token ||
+                                "—"
+                            )}
+                        </strong>
+
+                        <span>
+                            Your token
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    // ==========================================
+    // LOCAL QUEUE CALCULATION
+    // ==========================================
+
+    async function calculateLocalQueue() {
+
+        if (!currentBooking) {
+            return;
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/admin/bookings"
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    "Unable to calculate queue."
+                );
+
+            }
+
+
+            const active =
+                (data.bookings || [])
+                    .filter(
+                        booking => {
+
+                            const status =
+                                String(
+                                    booking.status ||
+                                    ""
+                                ).toLowerCase();
+
+
+                            return (
+                                status !==
+                                    "payment completed" &&
+                                status !==
+                                    "procurement completed"
+                            );
+
+                        }
+                    );
+
+
+            const sorted =
+                active.sort(
+                    (a, b) =>
+                        new Date(
+                            a.created_at
+                        ) -
+                        new Date(
+                            b.created_at
+                        )
+                );
+
+
+            const index =
+                sorted.findIndex(
+                    booking =>
+                        String(
+                            booking.booking_id
+                        ) ===
+                        String(
+                            currentBooking.booking_id
+                        )
+                );
+
+
+            const position =
+                index >= 0
+                    ? index + 1
+                    : 1;
+
+
+            const ahead =
+                Math.max(
+                    position - 1,
+                    0
+                );
+
+
+            document.getElementById(
+                "statQueue"
+            ).textContent =
+                `#${position}`;
+
+
+            document.getElementById(
+                "queueContainer"
+            ).innerHTML = `
+
+                <div class="queue-box">
+
+                    <div class="queue-number">
+                        #${position}
+                    </div>
+
+                    <div class="queue-label">
+                        Approximate live queue position
+                    </div>
+
+
+                    <div class="queue-details">
+
+
+                        <div class="queue-detail">
+
+                            <strong>
+                                ${ahead}
+                            </strong>
+
+                            <span>
+                                Farmers ahead
+                            </span>
+
+                        </div>
+
+
+                        <div class="queue-detail">
+
+                            <strong>
+                                —
+                            </strong>
+
+                            <span>
+                                Estimated wait
+                            </span>
+
+                        </div>
+
+
+                        <div class="queue-detail">
+
+                            <strong>
+                                ${escapeHtml(
+                                    currentBooking.token ||
+                                    "—"
+                                )}
+                            </strong>
+
+                            <span>
+                                Your token
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+        } catch (error) {
+
+            console.error(
+                "Local queue error:",
+                error
+            );
+
+
+            document.getElementById(
+                "statQueue"
+            ).textContent =
+                "—";
+
+
+            document.getElementById(
+                "queueContainer"
+            ).innerHTML = `
+
+                <div class="empty">
+
+                    Queue information
+                    unavailable.
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    // ==========================================
+    // RENDER JOURNEY
+    // ==========================================
+
+    function renderJourney() {
+
+        const container =
+            document.getElementById(
+                "journeyContainer"
+            );
+
+
+        if (!currentBooking) {
+
+            container.innerHTML = `
+
+                <div class="empty">
+
+                    Create a booking to start
+                    your procurement journey.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        const status =
+            String(
+                currentBooking.status ||
+                ""
+            ).toLowerCase();
+
+
+        const steps = [
+
+            {
+                name: "Slot Booked",
+                icon: "📅",
+                keywords: [
+                    "confirmed",
+                    "arrived",
+                    "quality",
+                    "weighing",
+                    "procurement",
+                    "payment"
+                ]
+            },
+
+            {
+                name: "Farmer Arrived",
+                icon: "👨‍🌾",
+                keywords: [
+                    "arrived",
+                    "quality",
+                    "weighing",
+                    "procurement",
+                    "payment"
+                ]
+            },
+
+            {
+                name: "Quality Checked",
+                icon: "🔬",
+                keywords: [
+                    "quality",
+                    "weighing",
+                    "procurement",
+                    "payment"
+                ]
+            },
+
+            {
+                name: "Weighed",
+                icon: "⚖️",
+                keywords: [
+                    "weighing",
+                    "procurement",
+                    "payment"
+                ]
+            },
+
+            {
+                name: "Procurement",
+                icon: "🌾",
+                keywords: [
+                    "procurement",
+                    "payment"
+                ]
+            },
+
+            {
+                name: "Payment",
+                icon: "💰",
+                keywords: [
+                    "payment"
+                ]
+            }
+
+        ];
+
+
+        const html =
+            steps.map(
+                (step, index) => {
+
+                    const completed =
+                        stepIsCompleted(
+                            step,
+                            status
+                        );
+
+
+                    const current =
+                        stepIsCurrent(
+                            step,
+                            status
+                        );
+
+
+                    return `
+
+                        <div
+                            class="journey-step
+                                ${
+                                    completed
+                                        ? "completed"
+                                        : ""
+                                }
+                                ${
+                                    current
+                                        ? "current"
+                                        : ""
+                                }"
+                        >
+
+                            <div
+                                class="journey-circle"
+                            >
+
+                                ${
+                                    completed
+                                        ? "✓"
+                                        : step.icon
+                                }
+
+                            </div>
+
+
+                            <div class="journey-name">
+
+                                ${step.name}
+
+                            </div>
+
+                        </div>
+
+
+                        ${
+                            index <
+                            steps.length - 1
+
+                            ? `
+
+                                <div
+                                    class="
+                                        journey-line
+                                        ${
+                                            completed
+                                                ? "done"
+                                                : ""
+                                        }
+                                    "
+                                ></div>
+
+                            `
+
+                            : ""
+                        }
+
+                    `;
+
+                }
+            )
+            .join("");
+
+
+        container.innerHTML = `
+
+            <div class="journey">
+
+                ${html}
+
+            </div>
+
+        `;
+
+    }
+
+
+    // ==========================================
+    // JOURNEY HELPERS
+    // ==========================================
+
+    function stepIsCompleted(
+        step,
+        status
+    ) {
+
+        if (
+            status ===
+            "payment completed"
+        ) {
+
+            return true;
+
+        }
+
+
+        if (
+            status ===
+            "procurement completed"
+        ) {
+
+            return (
+                step.name !==
+                "Payment"
+            );
+
+        }
+
+
+        if (
+            status ===
+            "weighing"
+        ) {
+
+            return [
+                "Slot Booked",
+                "Farmer Arrived",
+                "Quality Checked"
+            ].includes(
+                step.name
+            );
+
+        }
+
+
+        if (
+            status ===
+            "quality checked"
+        ) {
+
+            return [
+                "Slot Booked",
+                "Farmer Arrived"
+            ].includes(
+                step.name
+            );
+
+        }
+
+
+        if (
+            status ===
+            "arrived"
+        ) {
+
+            return (
+                step.name ===
+                "Slot Booked"
+            );
+
+        }
+
+
+        if (
+            status ===
+            "confirmed"
+        ) {
+
+            return false;
+
+        }
+
+
+        if (
+            status.includes(
+                "procurement"
+            )
+        ) {
+
+            return (
+                step.name !==
+                "Payment"
+            );
+
+        }
+
+
+        return false;
+
+    }
+
+
+    function stepIsCurrent(
+        step,
+        status
+    ) {
+
+        if (
+            status ===
+            "confirmed"
+        ) {
+
+            return (
+                step.name ===
+                "Slot Booked"
+            );
+
+        }
+
+
+        if (
+            status ===
+            "arrived"
+        ) {
+
+            return (
+                step.name ===
+                "Farmer Arrived"
+            );
+
+        }
+
+
+        if (
+            status ===
+            "quality checked"
+        ) {
+
+            return (
+                step.name ===
+                "Quality Checked"
+            );
+
+        }
+
+
+        if (
+            status ===
+            "weighing"
+        ) {
+
+            return (
+                step.name ===
+                "Weighed"
+            );
+
+        }
+
+
+        if (
+            status.includes(
+                "procurement"
+            )
+        ) {
+
+            return (
+                step.name ===
+                "Procurement"
+            );
+
+        }
+
+
+        if (
+            status.includes(
+                "payment"
+            )
+        ) {
+
+            return (
+                step.name ===
+                "Payment"
+            );
+
+        }
+
+
+        return false;
+
+    }
+
+
+    // ==========================================
+    // LOAD NOTIFICATIONS
+    // ==========================================
+
+    async function loadNotifications() {
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/farmers/${farmer.id}/notifications`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                response.ok &&
+                data.success
+            ) {
+
+                renderNotifications(
+                    data.notifications ||
+                    []
+                );
+
+            } else {
+
+                renderEmptyNotifications();
+
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "Notifications error:",
+                error
+            );
+
+
+            renderEmptyNotifications();
+
+        }
+
+    }
+
+
+    // ==========================================
+    // RENDER NOTIFICATIONS
+    // ==========================================
+
+    function renderNotifications(
+        notifications
+    ) {
+
+        const container =
+            document.getElementById(
+                "notificationsContainer"
+            );
+
+
+        if (
+            !notifications ||
+            notifications.length === 0
+        ) {
+
+            renderEmptyNotifications();
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            notifications
+                .map(
+                    notification => `
+
+                        <div class="notification">
+
+
+                            <div
+                                class="notification-icon"
+                            >
+                                🔔
+                            </div>
+
+
+                            <div>
+
+                                <div
+                                    class="notification-title"
+                                >
+                                    ${escapeHtml(
+                                        notification.title ||
+                                        "Procurement Update"
+                                    )}
+                                </div>
+
+
+                                <div
+                                    class="notification-message"
+                                >
+                                    ${escapeHtml(
+                                        notification.message ||
+                                        ""
+                                    )}
+                                </div>
+
+
+                                <div
+                                    class="notification-date"
+                                >
+                                    ${formatDateTime(
+                                        notification.created_at
+                                    )}
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    `
+                )
+                .join("");
+
+    }
+
+
+    // ==========================================
+    // EMPTY NOTIFICATIONS
+    // ==========================================
+
+    function renderEmptyNotifications() {
+
+        document.getElementById(
+            "notificationsContainer"
+        ).innerHTML = `
+
+            <div class="card empty">
+
+                <div class="empty-icon">
+                    🔔
+                </div>
+
+                No notifications yet.
+
+            </div>
+
+        `;
+
+    }
+
+
+    // ==========================================
+    // LOAD HISTORY
+    // ==========================================
+
+    async function loadHistory() {
+
+        const container =
+            document.getElementById(
+                "historyContainer"
+            );
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/farmers/${farmer.id}/payments`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                renderEmptyHistory();
+
+                return;
+
+            }
+
+
+            const payments =
+                data.payments ||
+                [];
+
+
+            if (
+                payments.length === 0
+            ) {
+
+                renderEmptyHistory();
+
+                return;
+
+            }
+
+
+            container.innerHTML =
+                payments
+                    .map(
+                        payment => `
+
+                            <div class="history-item">
+
+
+                                <div class="history-main">
+
+                                    <div class="history-id">
+                                        ${escapeHtml(
+                                            payment.booking_id ||
+                                            "—"
+                                        )}
+                                    </div>
+
+                                    <div class="history-info">
+
+                                        ${
+                                            payment.payment_status ||
+                                            "Payment"
+                                        }
+
+                                        ${
+                                            payment.payment_date
+                                                ? " • " +
+                                                  escapeHtml(
+                                                      payment.payment_date
+                                                  )
+                                                : ""
+                                        }
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="history-amount">
+
+                                    ${formatCurrency(
+                                        payment.amount ||
+                                        0
+                                    )}
+
+                                </div>
+
+
+                            </div>
+
+                        `
+                    )
+                    .join("");
+
+        } catch (error) {
+
+            console.error(
+                "History error:",
+                error
+            );
+
+
+            renderEmptyHistory();
+
+        }
+
+    }
+
+
+    // ==========================================
+    // EMPTY HISTORY
+    // ==========================================
+
+    function renderEmptyHistory() {
+
+        document.getElementById(
+            "historyContainer"
+        ).innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📜
+                </div>
+
+                No procurement history yet.
+
+            </div>
+
+        `;
+
+    }
+
+
+    // ==========================================
+    // RENDER PROFILE
+    // ==========================================
+
+    function renderProfile() {
+
+        const container =
+            document.getElementById(
+                "profileContainer"
+            );
+
+
+        if (!farmer) {
+
+            return;
+
+        }
+
+
+        container.innerHTML = `
+
+            <div class="profile-grid">
+
+
+                <div class="profile-item">
+
+                    <div class="label">
+                        Name
+                    </div>
+
+                    <div class="value">
+                        ${escapeHtml(
+                            farmer.name ||
+                            "—"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <div class="label">
+                        Farmer ID
+                    </div>
+
+                    <div class="value">
+                        ${escapeHtml(
+                            farmer.farmer_id ||
+                            farmer.id ||
+                            "—"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <div class="label">
+                        Mobile
+                    </div>
+
+                    <div class="value">
+                        ${escapeHtml(
+                            farmer.mobile ||
+                            "—"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <div class="label">
+                        Village
+                    </div>
+
+                    <div class="value">
+                        ${escapeHtml(
+                            farmer.village ||
+                            "—"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <div class="label">
+                        District
+                    </div>
+
+                    <div class="value">
+                        ${escapeHtml(
+                            farmer.district ||
+                            "—"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <div class="label">
+                        State
+                    </div>
+
+                    <div class="value">
+                        ${escapeHtml(
+                            farmer.state ||
+                            "—"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <div class="label">
+                        Language
+                    </div>
+
+                    <div class="value">
+                        ${escapeHtml(
+                            farmer.language ||
+                            "English"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <div class="label">
+                        Account
+                    </div>
+
+                    <div
+                        class="value"
+                        style="color:#15803d;"
+                    >
+                        ✓ Active
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        `;
+
+    }
+
+
+    // ==========================================
+    // STATUS BADGE
+    // ==========================================
+
+    function statusBadge(
+        status
+    ) {
+
+        const value =
+            String(
+                status ||
+                "Pending"
+            );
+
+
+        const lower =
+            value.toLowerCase();
+
+
+        let className =
+            "badge-gray";
+
+
+        if (
+            lower.includes(
+                "completed"
+            )
+        ) {
+
+            className =
+                "badge-green";
+
+        } else if (
+            lower.includes(
+                "arrived"
+            )
+        ) {
+
+            className =
+                "badge-blue";
+
+        } else if (
+            lower.includes(
+                "quality"
+            )
+        ) {
+
+            className =
+                "badge-purple";
+
+        } else if (
+            lower.includes(
+                "weigh"
+            )
+        ) {
+
+            className =
+                "badge-orange";
+
+        } else if (
+            lower.includes(
+                "processing"
+            )
+        ) {
+
+            className =
+                "badge-blue";
+
+        } else if (
+            lower.includes(
+                "confirmed"
+            )
+        ) {
+
+            className =
+                "badge-green";
+
+        }
+
+
+        return `
+
+            <span
+                class="badge ${className}"
+            >
+
+                ${escapeHtml(
+                    value
+                )}
+
+            </span>
+
+        `;
+
+    }
+
+
+    // ==========================================
+    // CURRENCY
+    // ==========================================
+
+    function formatCurrency(
+        amount
+    ) {
+
+        return new Intl.NumberFormat(
+            "en-IN",
+            {
+                style: "currency",
+
+                currency: "INR",
+
+                maximumFractionDigits: 0
+            }
+        ).format(
+            Number(amount) || 0
+        );
+
+    }
+
+
+    // ==========================================
+    // DATE FORMAT
+    // ==========================================
+
+    function formatDateTime(
+        value
+    ) {
+
+        if (!value) {
+
+            return "";
+
+        }
+
+
+        const date =
+            new Date(value);
+
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return String(
+                value
+            );
+
+        }
+
+
+        return date.toLocaleString(
+            "en-IN",
+            {
+                day: "numeric",
+
+                month: "short",
+
+                year: "numeric",
+
+                hour: "numeric",
+
+                minute: "2-digit"
+            }
+        );
+
+    }
+
+
+    // ==========================================
+    // ESCAPE HTML
+    // ==========================================
+
+    function escapeHtml(
+        value
+    ) {
+
+        return String(
+            value ??
+            ""
+        )
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    // ==========================================
+    // TOAST
+    // ==========================================
+
+    function showToast(
+        message
+    ) {
+
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+
+        toast.textContent =
+            message;
+
+
+        toast.classList.add(
+            "show"
+        );
+
+
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            3000
+        );
+
+    }
+
+
+    // ==========================================
+    // LOGOUT
+    // ==========================================
+
+    function logout() {
+
+        localStorage.removeItem(
+            "farmer"
+        );
+
+
+        window.location.href =
+            "login.html";
+
+    }
+
+
+</script>
+
+
+</body>
+
+</html>

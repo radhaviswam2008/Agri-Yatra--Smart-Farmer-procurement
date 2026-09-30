@@ -1,0 +1,6166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Smart Farmer - Admin Dashboard</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            font-family:
+                Inter,
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f5f7f4;
+
+            color: #1f2937;
+        }
+
+
+        button,
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+        }
+
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* ==========================================
+           APP
+        ========================================== */
+
+        .app {
+            min-height: 100vh;
+
+            display: flex;
+        }
+
+
+        /* ==========================================
+           SIDEBAR
+        ========================================== */
+
+        .sidebar {
+
+            width: 260px;
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            background: white;
+
+            border-right:
+                1px solid #e5e7eb;
+
+            display: flex;
+
+            flex-direction: column;
+
+            z-index: 100;
+
+        }
+
+
+        .brand {
+
+            padding: 22px 20px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+        }
+
+
+        .brand-row {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+
+        .brand-icon {
+
+            width: 45px;
+            height: 45px;
+
+            border-radius: 12px;
+
+            background: #dcfce7;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 23px;
+
+        }
+
+
+        .brand h2 {
+
+            color: #166534;
+
+            font-size: 17px;
+
+        }
+
+
+        .brand p {
+
+            color: #6b7280;
+
+            font-size: 11px;
+
+            margin-top: 3px;
+
+        }
+
+
+        .nav {
+
+            padding: 15px 12px;
+
+            flex: 1;
+
+            overflow-y: auto;
+
+        }
+
+
+        .nav-label {
+
+            color: #9ca3af;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: .08em;
+
+            padding:
+                12px 12px 8px;
+
+        }
+
+
+        .nav-item {
+
+            width: 100%;
+
+            border: none;
+
+            background: transparent;
+
+            color: #4b5563;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            padding: 11px 13px;
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            text-align: left;
+
+            margin-bottom: 3px;
+
+        }
+
+
+        .nav-item:hover {
+
+            background: #f0fdf4;
+
+            color: #166534;
+
+        }
+
+
+        .nav-item.active {
+
+            background: #dcfce7;
+
+            color: #166534;
+
+            font-weight: 700;
+
+        }
+
+
+        .nav-icon {
+
+            width: 24px;
+
+            text-align: center;
+
+            font-size: 17px;
+
+        }
+
+
+        /* ==========================================
+           ADMIN PROFILE
+        ========================================== */
+
+        .admin-profile {
+
+            padding: 15px;
+
+            border-top:
+                1px solid #e5e7eb;
+
+        }
+
+
+        .admin-row {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .admin-avatar {
+
+            width: 40px;
+            height: 40px;
+
+            border-radius: 50%;
+
+            background: #166534;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: 800;
+
+        }
+
+
+        .admin-name {
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+        }
+
+
+        .admin-role {
+
+            font-size: 10px;
+
+            color: #6b7280;
+
+            margin-top: 2px;
+
+        }
+
+
+        .logout-btn {
+
+            width: 100%;
+
+            border:
+                1px solid #fecaca;
+
+            background: #fffafa;
+
+            color: #dc2626;
+
+            border-radius: 8px;
+
+            padding: 9px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+        }
+
+
+        .logout-btn:hover {
+
+            background: #fef2f2;
+
+        }
+
+
+        /* ==========================================
+           MAIN
+        ========================================== */
+
+        .main {
+
+            margin-left: 260px;
+
+            width:
+                calc(100% - 260px);
+
+            min-height: 100vh;
+
+        }
+
+
+        /* ==========================================
+           TOPBAR
+        ========================================== */
+
+        .topbar {
+
+            height: 76px;
+
+            background: white;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 30px;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 50;
+
+        }
+
+
+        .top-title h1 {
+
+            font-size: 21px;
+
+            color: #111827;
+
+        }
+
+
+        .top-title p {
+
+            font-size: 12px;
+
+            color: #6b7280;
+
+            margin-top: 3px;
+
+        }
+
+
+        .top-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .online {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            background: #f0fdf4;
+
+            color: #15803d;
+
+            padding: 8px 12px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+        }
+
+
+        .online-dot {
+
+            width: 7px;
+            height: 7px;
+
+            background: #22c55e;
+
+            border-radius: 50%;
+
+        }
+
+
+        .refresh-btn {
+
+            border:
+                1px solid #d1d5db;
+
+            background: white;
+
+            color: #374151;
+
+            border-radius: 8px;
+
+            padding: 8px 13px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+        }
+
+
+        /* ==========================================
+           CONTENT
+        ========================================== */
+
+        .content {
+
+            padding: 28px 30px 60px;
+
+        }
+
+
+        .section {
+
+            margin-bottom: 35px;
+
+            scroll-margin-top: 95px;
+
+        }
+
+
+        .section-title {
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .section-title h2 {
+
+            font-size: 19px;
+
+            color: #111827;
+
+        }
+
+
+        .section-title p {
+
+            color: #6b7280;
+
+            font-size: 12px;
+
+            margin-top: 4px;
+
+        }
+
+
+        /* ==========================================
+           STATS
+        ========================================== */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+        }
+
+
+        .stat-card {
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 13px;
+
+            padding: 18px;
+
+            min-height: 120px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+        }
+
+
+        .stat-label {
+
+            color: #6b7280;
+
+            font-size: 11px;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .stat-value {
+
+            color: #111827;
+
+            font-size: 24px;
+
+            font-weight: 800;
+
+        }
+
+
+        .stat-text {
+
+            color: #9ca3af;
+
+            font-size: 10px;
+
+            margin-top: 6px;
+
+        }
+
+
+        .stat-icon {
+
+            width: 40px;
+            height: 40px;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 19px;
+
+        }
+
+
+        .green {
+            background: #dcfce7;
+        }
+
+
+        .blue {
+            background: #dbeafe;
+        }
+
+
+        .orange {
+            background: #ffedd5;
+        }
+
+
+        .purple {
+            background: #f3e8ff;
+        }
+
+
+        /* ==========================================
+           CARD
+        ========================================== */
+
+        .card {
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 13px;
+
+            padding: 20px;
+
+        }
+
+
+        /* ==========================================
+           TABLE
+        ========================================== */
+
+        .table-wrapper {
+
+            overflow-x: auto;
+
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 750px;
+
+        }
+
+
+        th {
+
+            background: #f8fafc;
+
+            color: #6b7280;
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .04em;
+
+            padding: 12px;
+
+            text-align: left;
+
+            white-space: nowrap;
+
+        }
+
+
+        td {
+
+            padding: 13px 12px;
+
+            border-bottom:
+                1px solid #f0f0f0;
+
+            font-size: 12px;
+
+            white-space: nowrap;
+
+        }
+
+
+        tr:last-child td {
+
+            border-bottom: none;
+
+        }
+
+
+        tr:hover td {
+
+            background: #fafafa;
+
+        }
+
+
+        /* ==========================================
+           BADGES
+        ========================================== */
+
+        .badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            padding: 5px 9px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+        }
+
+
+        .badge-green {
+
+            background: #dcfce7;
+
+            color: #15803d;
+
+        }
+
+
+        .badge-blue {
+
+            background: #dbeafe;
+
+            color: #1d4ed8;
+
+        }
+
+
+        .badge-orange {
+
+            background: #ffedd5;
+
+            color: #c2410c;
+
+        }
+
+
+        .badge-yellow {
+
+            background: #fef3c7;
+
+            color: #a16207;
+
+        }
+
+
+        .badge-purple {
+
+            background: #f3e8ff;
+
+            color: #7e22ce;
+
+        }
+
+
+        .badge-gray {
+
+            background: #f3f4f6;
+
+            color: #4b5563;
+
+        }
+
+
+        /* ==========================================
+           BUTTONS
+        ========================================== */
+
+        .btn {
+
+            border: none;
+
+            border-radius: 7px;
+
+            padding: 8px 11px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+        }
+
+
+        .btn-green {
+
+            background: #166534;
+
+            color: white;
+
+        }
+
+
+        .btn-green:hover {
+
+            background: #14532d;
+
+        }
+
+
+        .btn-blue {
+
+            background: #2563eb;
+
+            color: white;
+
+        }
+
+
+        .btn-orange {
+
+            background: #ea580c;
+
+            color: white;
+
+        }
+
+
+        .btn-purple {
+
+            background: #7e22ce;
+
+            color: white;
+
+        }
+
+
+        .btn-gray {
+
+            background: #f3f4f6;
+
+            color: #374151;
+
+        }
+
+
+        .btn-red {
+
+            background: #dc2626;
+
+            color: white;
+
+        }
+
+
+        .action-group {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 5px;
+
+        }
+
+
+        /* ==========================================
+           BOOKING ACTION PANEL
+        ========================================== */
+
+        .process-card {
+
+            margin-top: 15px;
+
+            background: #f8fafc;
+
+            border-radius: 10px;
+
+            padding: 15px;
+
+        }
+
+
+        .process-title {
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .process-buttons {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 7px;
+
+        }
+
+
+        /* ==========================================
+           TWO COLUMN
+        ========================================== */
+
+        .two-column {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 17px;
+
+        }
+
+
+        /* ==========================================
+           FORMS
+        ========================================== */
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 12px;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .form-group.full {
+
+            grid-column:
+                1 / -1;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            color: #4b5563;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+
+            width: 100%;
+
+            border:
+                1px solid #d1d5db;
+
+            border-radius: 7px;
+
+            padding: 9px 10px;
+
+            background: white;
+
+            font-size: 12px;
+
+            outline: none;
+
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+
+            border-color: #22c55e;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(34,197,94,.08);
+
+        }
+
+
+        .form-actions {
+
+            margin-top: 15px;
+
+            display: flex;
+
+            gap: 8px;
+
+        }
+
+
+        /* ==========================================
+           QUALITY CARDS
+        ========================================== */
+
+        .quality-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 10px;
+
+            margin-top: 15px;
+
+        }
+
+
+        .quality-value {
+
+            background: #f8fafc;
+
+            border-radius: 9px;
+
+            padding: 14px;
+
+            text-align: center;
+
+        }
+
+
+        .quality-value strong {
+
+            display: block;
+
+            font-size: 19px;
+
+        }
+
+
+        .quality-value span {
+
+            display: block;
+
+            color: #6b7280;
+
+            font-size: 10px;
+
+            margin-top: 4px;
+
+        }
+
+
+        /* ==========================================
+           QUEUE
+        ========================================== */
+
+        .queue-position {
+
+            width: 75px;
+
+            height: 75px;
+
+            border-radius: 50%;
+
+            background: #dcfce7;
+
+            color: #166534;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+            margin: 0 auto 10px;
+
+        }
+
+
+        .queue-center {
+
+            text-align: center;
+
+            padding: 15px;
+
+        }
+
+
+        /* ==========================================
+           PAYMENT
+        ========================================== */
+
+        .payment-amount {
+
+            font-size: 28px;
+
+            font-weight: 800;
+
+            color: #166534;
+
+        }
+
+
+        /* ==========================================
+           EMPTY / LOADING
+        ========================================== */
+
+        .empty {
+
+            padding: 35px 20px;
+
+            text-align: center;
+
+            color: #9ca3af;
+
+            font-size: 12px;
+
+        }
+
+
+        .loading {
+
+            padding: 25px;
+
+            text-align: center;
+
+            color: #9ca3af;
+
+            font-size: 12px;
+
+        }
+
+
+        /* ==========================================
+           NOTIFICATION
+        ========================================== */
+
+        .notification {
+
+            display: flex;
+
+            gap: 10px;
+
+            padding: 12px 0;
+
+            border-bottom:
+                1px solid #f0f0f0;
+
+        }
+
+
+        .notification:last-child {
+
+            border-bottom: none;
+
+        }
+
+
+        .notification-icon {
+
+            width: 35px;
+            height: 35px;
+
+            border-radius: 9px;
+
+            background: #dcfce7;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .notification-title {
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+        }
+
+
+        .notification-message {
+
+            font-size: 11px;
+
+            color: #6b7280;
+
+            margin-top: 3px;
+
+            line-height: 1.5;
+
+        }
+
+
+        /* ==========================================
+           MODAL
+        ========================================== */
+
+        .modal {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(17,24,39,.45);
+
+            z-index: 500;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+        }
+
+
+        .modal.show {
+
+            display: flex;
+
+        }
+
+
+        .modal-box {
+
+            width: 100%;
+
+            max-width: 600px;
+
+            max-height: 90vh;
+
+            overflow-y: auto;
+
+            background: white;
+
+            border-radius: 14px;
+
+            padding: 22px;
+
+            box-shadow:
+                0 20px 50px
+                rgba(0,0,0,.15);
+
+        }
+
+
+        .modal-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .modal-header h3 {
+
+            font-size: 17px;
+
+        }
+
+
+        .close-btn {
+
+            width: 30px;
+
+            height: 30px;
+
+            border: none;
+
+            background: #f3f4f6;
+
+            border-radius: 7px;
+
+            font-size: 16px;
+
+        }
+
+
+        /* ==========================================
+           TOAST
+        ========================================== */
+
+        .toast {
+
+            position: fixed;
+
+            right: 25px;
+
+            bottom: 25px;
+
+            background: #111827;
+
+            color: white;
+
+            padding: 12px 17px;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+
+            display: none;
+
+            z-index: 999;
+
+        }
+
+
+        .toast.show {
+
+            display: block;
+
+        }
+
+
+        /* ==========================================
+           RESPONSIVE
+        ========================================== */
+
+        @media(max-width:1100px) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+
+            .quality-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+        }
+
+
+        @media(max-width:850px) {
+
+            .sidebar {
+
+                width: 70px;
+
+            }
+
+
+            .brand {
+
+                padding:
+                    15px 10px;
+
+            }
+
+
+            .brand h2,
+            .brand p,
+            .nav-label,
+            .nav-item span:not(.nav-icon),
+            .admin-profile
+            .admin-row > div {
+
+                display: none;
+
+            }
+
+
+            .brand-row {
+
+                justify-content: center;
+
+            }
+
+
+            .nav-item {
+
+                justify-content: center;
+
+            }
+
+
+            .main {
+
+                margin-left: 70px;
+
+                width:
+                    calc(100% - 70px);
+
+            }
+
+
+            .two-column {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        @media(max-width:600px) {
+
+            .stats {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .form-group.full {
+
+                grid-column: auto;
+
+            }
+
+
+            .quality-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+
+            .topbar {
+
+                padding: 0 15px;
+
+            }
+
+
+            .online {
+
+                display: none;
+
+            }
+
+
+            .content {
+
+                padding:
+                    20px 15px 50px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- ==========================================
+         SIDEBAR
+    =========================================== -->
+
+    <aside class="sidebar">
+
+
+        <div class="brand">
+
+            <div class="brand-row">
+
+                <div class="brand-icon">
+                    🌾
+                </div>
+
+                <div>
+
+                    <h2>
+                        Smart Farmer
+                    </h2>
+
+                    <p>
+                        Procurement Admin
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <nav class="nav">
+
+
+            <div class="nav-label">
+                Management
+            </div>
+
+
+            <button
+                class="nav-item active"
+                onclick="goTo('overview')"
+            >
+
+                <span class="nav-icon">
+                    📊
+                </span>
+
+                <span>
+                    Overview
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="goTo('farmers')"
+            >
+
+                <span class="nav-icon">
+                    👨‍🌾
+                </span>
+
+                <span>
+                    Farmers
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="goTo('bookings')"
+            >
+
+                <span class="nav-icon">
+                    📅
+                </span>
+
+                <span>
+                    Bookings
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="goTo('queue')"
+            >
+
+                <span class="nav-icon">
+                    🚜
+                </span>
+
+                <span>
+                    Live Queue
+                </span>
+
+            </button>
+
+
+            <div class="nav-label">
+                Procurement
+            </div>
+
+
+            <button
+                class="nav-item"
+                onclick="goTo('quality')"
+            >
+
+                <span class="nav-icon">
+                    🔬
+                </span>
+
+                <span>
+                    Quality Check
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="goTo('weighing')"
+            >
+
+                <span class="nav-icon">
+                    ⚖️
+                </span>
+
+                <span>
+                    Weighing
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="goTo('procurement')"
+            >
+
+                <span class="nav-icon">
+                    🌾
+                </span>
+
+                <span>
+                    Procurement
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="goTo('payments')"
+            >
+
+                <span class="nav-icon">
+                    💰
+                </span>
+
+                <span>
+                    Payments
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="goTo('notifications')"
+            >
+
+                <span class="nav-icon">
+                    🔔
+                </span>
+
+                <span>
+                    Notifications
+                </span>
+
+            </button>
+
+
+        </nav>
+
+
+        <div class="admin-profile">
+
+
+            <div class="admin-row">
+
+                <div class="admin-avatar">
+                    A
+                </div>
+
+                <div>
+
+                    <div
+                        class="admin-name"
+                        id="adminName"
+                    >
+                        Procurement Administrator
+                    </div>
+
+                    <div class="admin-role">
+                        Procurement Officer
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="logout-btn"
+                onclick="logout()"
+            >
+                🚪 Logout
+            </button>
+
+
+        </div>
+
+
+    </aside>
+
+
+    <!-- ==========================================
+         MAIN
+    =========================================== -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+
+            <div class="top-title">
+
+                <h1>
+                    Admin Dashboard
+                </h1>
+
+                <p>
+                    Manage the complete farmer procurement process
+                </p>
+
+            </div>
+
+
+            <div class="top-actions">
+
+
+                <div class="online">
+
+                    <span class="online-dot"></span>
+
+                    System Online
+
+                </div>
+
+
+                <button
+                    class="refresh-btn"
+                    onclick="loadAll()"
+                >
+                    🔄 Refresh
+                </button>
+
+
+            </div>
+
+
+        </header>
+
+
+        <div class="content">
+
+
+            <!-- ======================================
+                 OVERVIEW
+            ======================================= -->
+
+            <section
+                id="overview"
+                class="section"
+            >
+
+
+                <div class="section-title">
+
+                    <h2>
+                        Dashboard Overview
+                    </h2>
+
+                    <p>
+                        Current procurement centre activity
+                    </p>
+
+                </div>
+
+
+                <div class="stats">
+
+
+                    <div class="stat-card">
+
+                        <div>
+
+                            <div class="stat-label">
+                                Total Farmers
+                            </div>
+
+                            <div
+                                class="stat-value"
+                                id="totalFarmers"
+                            >
+                                0
+                            </div>
+
+                            <div class="stat-text">
+                                Registered farmers
+                            </div>
+
+                        </div>
+
+                        <div class="stat-icon green">
+                            👨‍🌾
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div>
+
+                            <div class="stat-label">
+                                Today's Bookings
+                            </div>
+
+                            <div
+                                class="stat-value"
+                                id="todayBookings"
+                            >
+                                0
+                            </div>
+
+                            <div class="stat-text">
+                                Procurement appointments
+                            </div>
+
+                        </div>
+
+                        <div class="stat-icon blue">
+                            📅
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div>
+
+                            <div class="stat-label">
+                                Completed Procurement
+                            </div>
+
+                            <div
+                                class="stat-value"
+                                id="completedProcurement"
+                            >
+                                0
+                            </div>
+
+                            <div class="stat-text">
+                                Successfully processed
+                            </div>
+
+                        </div>
+
+                        <div class="stat-icon orange">
+                            🌾
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div>
+
+                            <div class="stat-label">
+                                Procurement Value
+                            </div>
+
+                            <div
+                                class="stat-value"
+                                id="totalAmount"
+                            >
+                                ₹0
+                            </div>
+
+                            <div class="stat-text">
+                                Completed procurement
+                            </div>
+
+                        </div>
+
+                        <div class="stat-icon purple">
+                            💰
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- ======================================
+                 FARMERS
+            ======================================= -->
+
+            <section
+                id="farmers"
+                class="section"
+            >
+
+
+                <div class="section-title">
+
+                    <h2>
+                        👨‍🌾 Farmers
+                    </h2>
+
+                    <p>
+                        Registered farmers in the system
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+
+                    <div
+                        id="farmersTable"
+                        class="loading"
+                    >
+                        Loading farmers...
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- ======================================
+                 BOOKINGS
+            ======================================= -->
+
+            <section
+                id="bookings"
+                class="section"
+            >
+
+
+                <div class="section-title">
+
+                    <h2>
+                        📅 Bookings
+                    </h2>
+
+                    <p>
+                        Manage farmer procurement appointments
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+
+                    <div
+                        id="bookingsTable"
+                        class="loading"
+                    >
+                        Loading bookings...
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- ======================================
+                 QUEUE
+            ======================================= -->
+
+            <section
+                id="queue"
+                class="section"
+            >
+
+
+                <div class="section-title">
+
+                    <h2>
+                        🚜 Live Queue
+                    </h2>
+
+                    <p>
+                        Current farmer queue at the procurement centre
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+
+                    <div
+                        id="queueTable"
+                        class="loading"
+                    >
+                        Loading queue...
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- ======================================
+                 QUALITY
+            ======================================= -->
+
+            <section
+                id="quality"
+                class="section"
+            >
+
+
+                <div class="section-title">
+
+                    <h2>
+                        🔬 Quality Check
+                    </h2>
+
+                    <p>
+                        Record moisture and quality parameters
+                    </p>
+
+                </div>
+
+
+                <div class="two-column">
+
+
+                    <!-- QUALITY FORM -->
+
+                    <div class="card">
+
+
+                        <div class="section-title">
+
+                            <h2 style="font-size:15px;">
+                                Record Quality
+                            </h2>
+
+                            <p>
+                                Enter inspection results
+                            </p>
+
+                        </div>
+
+
+                        <form
+                            id="qualityForm"
+                            onsubmit="saveQuality(event)"
+                        >
+
+
+                            <div class="form-grid">
+
+
+                                <div class="form-group full">
+
+                                    <label>
+                                        Booking ID
+                                    </label>
+
+                                    <select
+                                        id="qualityBooking"
+                                        required
+                                    >
+
+                                        <option value="">
+                                            Select booking
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label>
+                                        Moisture (%)
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        id="moisture"
+                                        step="0.01"
+                                        min="0"
+                                        max="100"
+                                        placeholder="Example: 14.5"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label>
+                                        Foreign Matter (%)
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        id="foreignMatter"
+                                        step="0.01"
+                                        min="0"
+                                        max="100"
+                                        placeholder="Example: 1.2"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label>
+                                        Damaged Grains (%)
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        id="damagedGrains"
+                                        step="0.01"
+                                        min="0"
+                                        max="100"
+                                        placeholder="Example: 2"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label>
+                                        Quality Grade
+                                    </label>
+
+                                    <select
+                                        id="qualityGrade"
+                                        required
+                                    >
+
+                                        <option value="">
+                                            Select grade
+                                        </option>
+
+                                        <option value="A">
+                                            Grade A
+                                        </option>
+
+                                        <option value="B">
+                                            Grade B
+                                        </option>
+
+                                        <option value="C">
+                                            Grade C
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="form-actions">
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-green"
+                                >
+                                    🔬 Save Quality Result
+                                </button>
+
+                            </div>
+
+
+                        </form>
+
+
+                    </div>
+
+
+                    <!-- QUALITY RECORDS -->
+
+                    <div class="card">
+
+
+                        <div class="section-title">
+
+                            <h2 style="font-size:15px;">
+                                Recent Quality Results
+                            </h2>
+
+                            <p>
+                                Latest inspections
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            id="qualityRecords"
+                        >
+                            <div class="loading">
+                                Loading...
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- ======================================
+                 WEIGHING
+            ======================================= -->
+
+            <section
+                id="weighing"
+                class="section"
+            >
+
+
+                <div class="section-title">
+
+                    <h2>
+                        ⚖️ Weighing
+                    </h2>
+
+                    <p>
+                        Enter actual net weight and procurement rate
+                    </p>
+
+                </div>
+
+
+                <div class="two-column">
+
+
+                    <div class="card">
+
+
+                        <div class="section-title">
+
+                            <h2 style="font-size:15px;">
+                                Record Weighing
+                            </h2>
+
+                            <p>
+                                Actual produce received
+                            </p>
+
+                        </div>
+
+
+                        <form
+                            onsubmit="saveProcurement(event)"
+                        >
+
+
+                            <div class="form-grid">
+
+
+                                <div
+                                    class="form-group full"
+                                >
+
+                                    <label>
+                                        Booking ID
+                                    </label>
+
+                                    <select
+                                        id="procurementBooking"
+                                        required
+                                    >
+
+                                        <option value="">
+                                            Select booking
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label>
+                                        Net Weight (Quintals)
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        id="netWeight"
+                                        step="0.01"
+                                        min="0"
+                                        placeholder="Example: 24.80"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label>
+                                        Procurement Rate (₹ / Q)
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        id="procurementRate"
+                                        step="0.01"
+                                        min="0"
+                                        value="2300"
+                                        required
+                                    >
+
+                                </div>
+
+
+                            </div>
+
+
+                            <div
+                                style="
+                                    margin-top:15px;
+                                    padding:13px;
+                                    background:#f0fdf4;
+                                    border-radius:9px;
+                                "
+                            >
+
+                                <div
+                                    style="
+                                        font-size:10px;
+                                        color:#6b7280;
+                                    "
+                                >
+                                    Calculated Procurement Value
+                                </div>
+
+
+                                <div
+                                    id="calculatedAmount"
+                                    style="
+                                        font-size:22px;
+                                        font-weight:800;
+                                        color:#166534;
+                                        margin-top:4px;
+                                    "
+                                >
+                                    ₹0
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-actions">
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-green"
+                                >
+                                    ⚖️ Save Weight
+                                </button>
+
+                            </div>
+
+
+                        </form>
+
+
+                    </div>
+
+
+                    <div class="card">
+
+
+                        <div class="section-title">
+
+                            <h2 style="font-size:15px;">
+                                Procurement Records
+                            </h2>
+
+                            <p>
+                                Recorded weights and values
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            id="procurementRecords"
+                        >
+
+                            <div class="loading">
+                                Loading...
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- ======================================
+                 PROCUREMENT
+            ======================================= -->
+
+            <section
+                id="procurement"
+                class="section"
+            >
+
+
+                <div class="section-title">
+
+                    <h2>
+                        🌾 Procurement
+                    </h2>
+
+                    <p>
+                        Complete the procurement process
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+
+                    <div
+                        id="procurementTable"
+                        class="loading"
+                    >
+                        Loading procurement records...
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- ======================================
+                 PAYMENTS
+            ======================================= -->
+
+            <section
+                id="payments"
+                class="section"
+            >
+
+
+                <div class="section-title">
+
+                    <h2>
+                        💰 Payments
+                    </h2>
+
+                    <p>
+                        Process farmer procurement payments
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+
+                    <div
+                        id="paymentsTable"
+                        class="loading"
+                    >
+                        Loading payments...
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- ======================================
+                 NOTIFICATIONS
+            ======================================= -->
+
+            <section
+                id="notifications"
+                class="section"
+            >
+
+
+                <div class="section-title">
+
+                    <h2>
+                        🔔 Notifications
+                    </h2>
+
+                    <p>
+                        Send updates directly to farmers
+                    </p>
+
+                </div>
+
+
+                <div class="two-column">
+
+
+                    <!-- SEND -->
+
+                    <div class="card">
+
+
+                        <div class="section-title">
+
+                            <h2 style="font-size:15px;">
+                                Send Notification
+                            </h2>
+
+                            <p>
+                                Notify a farmer about their procurement
+                            </p>
+
+                        </div>
+
+
+                        <form
+                            onsubmit="sendNotification(event)"
+                        >
+
+
+                            <div class="form-grid">
+
+
+                                <div class="form-group full">
+
+                                    <label>
+                                        Farmer
+                                    </label>
+
+                                    <select
+                                        id="notificationFarmer"
+                                        required
+                                    >
+
+                                        <option value="">
+                                            Select farmer
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div class="form-group full">
+
+                                    <label>
+                                        Title
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="notificationTitle"
+                                        placeholder="Example: Procurement Update"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <div class="form-group full">
+
+                                    <label>
+                                        Message
+                                    </label>
+
+                                    <textarea
+                                        id="notificationMessage"
+                                        rows="4"
+                                        placeholder="Enter notification message..."
+                                        required
+                                    ></textarea>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="form-actions">
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-green"
+                                >
+                                    🔔 Send Notification
+                                </button>
+
+                            </div>
+
+
+                        </form>
+
+
+                    </div>
+
+
+                    <!-- RECENT -->
+
+                    <div class="card">
+
+
+                        <div class="section-title">
+
+                            <h2 style="font-size:15px;">
+                                Recent Notifications
+                            </h2>
+
+                            <p>
+                                Notification history
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            id="notificationRecords"
+                        >
+
+                            <div class="loading">
+                                Loading...
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+<!-- ==========================================
+     BOOKING MODAL
+=========================================== -->
+
+<div
+    id="bookingModal"
+    class="modal"
+>
+
+
+    <div class="modal-box">
+
+
+        <div class="modal-header">
+
+            <h3>
+                Booking Details
+            </h3>
+
+            <button
+                class="close-btn"
+                onclick="closeModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            id="bookingDetails"
+        ></div>
+
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+<script>
+
+
+// ============================================
+// GLOBAL VARIABLES
+// ============================================
+
+let farmers = [];
+
+let bookings = [];
+
+let qualityRecords = [];
+
+let procurementRecords = [];
+
+let paymentRecords = [];
+
+let notificationRecords = [];
+
+
+// ============================================
+// PAGE LOAD
+// ============================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function() {
+
+        checkAdminLogin();
+
+        await loadAll();
+
+
+        // Live refresh every 10 seconds
+
+        setInterval(
+            async function() {
+
+                await loadAll();
+
+            },
+            10000
+        );
+
+    }
+);
+
+
+// ============================================
+// CHECK ADMIN LOGIN
+// ============================================
+
+function checkAdminLogin() {
+
+    const storedAdmin =
+        localStorage.getItem("admin");
+
+
+    if (!storedAdmin) {
+
+        window.location.href =
+            "admin-login.html";
+
+        return;
+
+    }
+
+
+    try {
+
+        const admin =
+            JSON.parse(
+                storedAdmin
+            );
+
+
+        if (
+            admin &&
+            admin.name
+        ) {
+
+            document.getElementById(
+                "adminName"
+            ).textContent =
+                admin.name;
+
+        }
+
+    } catch(error) {
+
+        console.error(
+            "Invalid admin session."
+        );
+
+    }
+
+}
+
+
+// ============================================
+// LOAD ALL DATA
+// ============================================
+
+async function loadAll() {
+
+    try {
+
+        await Promise.all([
+
+            loadStats(),
+
+            loadFarmers(),
+
+            loadBookings(),
+
+            loadQuality(),
+
+            loadProcurement(),
+
+            loadPayments(),
+
+            loadNotifications()
+
+        ]);
+
+
+        renderQueue();
+
+
+    } catch(error) {
+
+        console.error(
+            "Dashboard loading error:",
+            error
+        );
+
+    }
+
+}
+
+
+// ============================================
+// LOAD STATS
+// ============================================
+
+async function loadStats() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/admin/stats"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            response.ok &&
+            data.success
+        ) {
+
+            const stats =
+                data.stats;
+
+
+            document.getElementById(
+                "totalFarmers"
+            ).textContent =
+                stats.total_farmers || 0;
+
+
+            document.getElementById(
+                "todayBookings"
+            ).textContent =
+                stats.today_bookings || 0;
+
+
+            document.getElementById(
+                "completedProcurement"
+            ).textContent =
+                stats.completed_procurement || 0;
+
+
+            document.getElementById(
+                "totalAmount"
+            ).textContent =
+                formatCurrency(
+                    stats.total_amount || 0
+                );
+
+        }
+
+    } catch(error) {
+
+        console.error(
+            "Stats error:",
+            error
+        );
+
+    }
+
+}
+
+
+// ============================================
+// LOAD FARMERS
+// ============================================
+
+async function loadFarmers() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/admin/farmers"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load farmers."
+            );
+
+        }
+
+
+        farmers =
+            data.farmers || [];
+
+
+        renderFarmers();
+
+        populateFarmerSelects();
+
+    } catch(error) {
+
+        console.error(
+            "Farmers error:",
+            error
+        );
+
+    }
+
+}
+
+
+// ============================================
+// RENDER FARMERS
+// ============================================
+
+function renderFarmers() {
+
+    const container =
+        document.getElementById(
+            "farmersTable"
+        );
+
+
+    if (!farmers.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+                👨‍🌾 No farmers registered yet.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    let html = `
+
+        <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Farmer</th>
+
+                    <th>Mobile</th>
+
+                    <th>Farmer ID</th>
+
+                    <th>Village</th>
+
+                    <th>District</th>
+
+                    <th>State</th>
+
+                    <th>Language</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+    `;
+
+
+    farmers.forEach(
+        farmer => {
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        #${farmer.id}
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${escapeHTML(
+                                farmer.name
+                            )}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            farmer.mobile
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            farmer.farmer_id ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            farmer.village ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            farmer.district ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            farmer.state ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            farmer.language ||
+                            "English"
+                        )}
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+
+            </tbody>
+
+        </table>
+
+        </div>
+
+    `;
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+// ============================================
+// LOAD BOOKINGS
+// ============================================
+
+async function loadBookings() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/admin/bookings"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load bookings."
+            );
+
+        }
+
+
+        bookings =
+            data.bookings || [];
+
+
+        renderBookings();
+
+        populateBookingSelects();
+
+    } catch(error) {
+
+        console.error(
+            "Bookings error:",
+            error
+        );
+
+    }
+
+}
+
+
+// ============================================
+// RENDER BOOKINGS
+// ============================================
+
+function renderBookings() {
+
+    const container =
+        document.getElementById(
+            "bookingsTable"
+        );
+
+
+    if (!bookings.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                📅 No bookings available.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    let html = `
+
+        <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Booking</th>
+
+                    <th>Farmer</th>
+
+                    <th>Crop</th>
+
+                    <th>Quantity</th>
+
+                    <th>Centre</th>
+
+                    <th>Date</th>
+
+                    <th>Time</th>
+
+                    <th>Status</th>
+
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+    `;
+
+
+    bookings.forEach(
+        booking => {
+
+            html += `
+
+                <tr>
+
+                    <td>
+
+                        <strong>
+                            ${escapeHTML(
+                                booking.booking_id
+                            )}
+                        </strong>
+
+                    </td>
+
+
+                    <td>
+
+                        ${escapeHTML(
+                            booking.farmer_name ||
+                            "-"
+                        )}
+
+                        <br>
+
+                        <small
+                            style="color:#9ca3af;"
+                        >
+
+                            ${escapeHTML(
+                                booking.farmer_mobile ||
+                                ""
+                            )}
+
+                        </small>
+
+                    </td>
+
+
+                    <td>
+
+                        ${escapeHTML(
+                            booking.crop ||
+                            "-"
+                        )}
+
+                        <br>
+
+                        <small
+                            style="color:#9ca3af;"
+                        >
+
+                            ${escapeHTML(
+                                booking.variety ||
+                                ""
+                            )}
+
+                        </small>
+
+                    </td>
+
+
+                    <td>
+
+                        ${Number(
+                            booking.quintals ||
+                            booking.weight ||
+                            0
+                        ).toFixed(2)}
+                        Q
+
+                    </td>
+
+
+                    <td>
+
+                        ${escapeHTML(
+                            booking.centre ||
+                            "-"
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        ${escapeHTML(
+                            booking.date ||
+                            "-"
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        ${escapeHTML(
+                            booking.time ||
+                            "-"
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        ${statusBadge(
+                            booking.status
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        <div class="action-group">
+
+                            <button
+                                class="btn btn-gray"
+                                onclick="viewBooking('${escapeJS(
+                                    booking.booking_id
+                                )}')"
+                            >
+                                View
+                            </button>
+
+                            <button
+                                class="btn btn-blue"
+                                onclick="markArrived('${escapeJS(
+                                    booking.booking_id
+                                )}')"
+                            >
+                                Arrived
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+
+            </tbody>
+
+        </table>
+
+        </div>
+
+    `;
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+// ============================================
+// BOOKING VIEW
+// ============================================
+
+function viewBooking(bookingId) {
+
+    const booking =
+        bookings.find(
+            item =>
+                String(
+                    item.booking_id
+                ) ===
+                String(
+                    bookingId
+                )
+        );
+
+
+    if (!booking) {
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "bookingDetails"
+    ).innerHTML = `
+
+        <div class="form-grid">
+
+
+            <div class="profile-field"
+                style="
+                    background:#f8fafc;
+                    padding:12px;
+                    border-radius:8px;
+                "
+            >
+
+                <label
+                    style="
+                        font-size:10px;
+                        color:#9ca3af;
+                    "
+                >
+                    Booking ID
+                </label>
+
+                <strong>
+                    ${escapeHTML(
+                        booking.booking_id
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div
+                style="
+                    background:#f8fafc;
+                    padding:12px;
+                    border-radius:8px;
+                "
+            >
+
+                <label
+                    style="
+                        font-size:10px;
+                        color:#9ca3af;
+                    "
+                >
+                    Status
+                </label>
+
+                <div>
+                    ${statusBadge(
+                        booking.status
+                    )}
+                </div>
+
+            </div>
+
+
+            <div
+                style="
+                    background:#f8fafc;
+                    padding:12px;
+                    border-radius:8px;
+                "
+            >
+
+                <label
+                    style="
+                        font-size:10px;
+                        color:#9ca3af;
+                    "
+                >
+                    Farmer
+                </label>
+
+                <div>
+                    ${escapeHTML(
+                        booking.farmer_name ||
+                        "-"
+                    )}
+                </div>
+
+            </div>
+
+
+            <div
+                style="
+                    background:#f8fafc;
+                    padding:12px;
+                    border-radius:8px;
+                "
+            >
+
+                <label
+                    style="
+                        font-size:10px;
+                        color:#9ca3af;
+                    "
+                >
+                    Mobile
+                </label>
+
+                <div>
+                    ${escapeHTML(
+                        booking.farmer_mobile ||
+                        "-"
+                    )}
+                </div>
+
+            </div>
+
+
+            <div
+                style="
+                    background:#f8fafc;
+                    padding:12px;
+                    border-radius:8px;
+                "
+            >
+
+                <label
+                    style="
+                        font-size:10px;
+                        color:#9ca3af;
+                    "
+                >
+                    Crop
+                </label>
+
+                <div>
+                    ${escapeHTML(
+                        booking.crop ||
+                        "-"
+                    )}
+                </div>
+
+            </div>
+
+
+            <div
+                style="
+                    background:#f8fafc;
+                    padding:12px;
+                    border-radius:8px;
+                "
+            >
+
+                <label
+                    style="
+                        font-size:10px;
+                        color:#9ca3af;
+                    "
+                >
+                    Quantity
+                </label>
+
+                <div>
+
+                    ${Number(
+                        booking.quintals ||
+                        booking.weight ||
+                        0
+                    ).toFixed(2)}
+                    Q
+
+                </div>
+
+            </div>
+
+
+            <div
+                style="
+                    background:#f8fafc;
+                    padding:12px;
+                    border-radius:8px;
+                "
+            >
+
+                <label
+                    style="
+                        font-size:10px;
+                        color:#9ca3af;
+                    "
+                >
+                    Centre
+                </label>
+
+                <div>
+                    ${escapeHTML(
+                        booking.centre ||
+                        "-"
+                    )}
+                </div>
+
+            </div>
+
+
+            <div
+                style="
+                    background:#f8fafc;
+                    padding:12px;
+                    border-radius:8px;
+                "
+            >
+
+                <label
+                    style="
+                        font-size:10px;
+                        color:#9ca3af;
+                    "
+                >
+                    Token
+                </label>
+
+                <div>
+                    ${escapeHTML(
+                        booking.token ||
+                        "-"
+                    )}
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="process-card">
+
+            <div class="process-title">
+                Procurement Process
+            </div>
+
+
+            <div class="process-buttons">
+
+
+                <button
+                    class="btn btn-blue"
+                    onclick="markArrived('${escapeJS(
+                        booking.booking_id
+                    )}')"
+                >
+                    🚜 Arrived
+                </button>
+
+
+                <button
+                    class="btn btn-orange"
+                    onclick="startQuality('${escapeJS(
+                        booking.booking_id
+                    )}')"
+                >
+                    🔬 Quality
+                </button>
+
+
+                <button
+                    class="btn btn-blue"
+                    onclick="startWeighing('${escapeJS(
+                        booking.booking_id
+                    )}')"
+                >
+                    ⚖️ Weighing
+                </button>
+
+
+                <button
+                    class="btn btn-purple"
+                    onclick="startProcurement('${escapeJS(
+                        booking.booking_id
+                    )}')"
+                >
+                    🌾 Procurement
+                </button>
+
+
+                <button
+                    class="btn btn-green"
+                    onclick="completeProcurement('${escapeJS(
+                        booking.booking_id
+                    )}')"
+                >
+                    ✓ Complete
+                </button>
+
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document.getElementById(
+        "bookingModal"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+// ============================================
+// CLOSE MODAL
+// ============================================
+
+function closeModal() {
+
+    document.getElementById(
+        "bookingModal"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+// ============================================
+// UPDATE BOOKING STATUS
+// ============================================
+
+async function updateStatus(
+    bookingId,
+    endpoint,
+    successMessage
+) {
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/admin/booking/${encodeURIComponent(
+                    bookingId
+                )}/${endpoint}`,
+                {
+                    method: "PUT"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.message ||
+                "Status update failed."
+            );
+
+        }
+
+
+        showToast(
+            successMessage
+        );
+
+
+        closeModal();
+
+
+        await loadAll();
+
+
+    } catch(error) {
+
+        console.error(
+            "Status update error:",
+            error
+        );
+
+
+        showToast(
+            error.message
+        );
+
+    }
+
+}
+
+
+// ============================================
+// ARRIVED
+// ============================================
+
+function markArrived(bookingId) {
+
+    updateStatus(
+
+        bookingId,
+
+        "arrived",
+
+        "🚜 Farmer marked as arrived."
+
+    );
+
+}
+
+
+// ============================================
+// QUALITY START
+// ============================================
+
+function startQuality(bookingId) {
+
+    updateStatus(
+
+        bookingId,
+
+        "quality",
+
+        "🔬 Quality check started."
+
+    );
+
+}
+
+
+// ============================================
+// WEIGHING START
+// ============================================
+
+function startWeighing(bookingId) {
+
+    updateStatus(
+
+        bookingId,
+
+        "weighing",
+
+        "⚖️ Weighing started."
+
+    );
+
+}
+
+
+// ============================================
+// PROCUREMENT START
+// ============================================
+
+function startProcurement(bookingId) {
+
+    updateStatus(
+
+        bookingId,
+
+        "procurement",
+
+        "🌾 Procurement processing started."
+
+    );
+
+}
+
+
+// ============================================
+// COMPLETE PROCUREMENT
+// ============================================
+
+function completeProcurement(
+    bookingId
+) {
+
+    updateStatus(
+
+        bookingId,
+
+        "complete",
+
+        "✓ Procurement completed."
+
+    );
+
+}
+
+
+// ============================================
+// LOAD QUALITY
+// ============================================
+
+async function loadQuality() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/admin/quality"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            return;
+
+        }
+
+
+        qualityRecords =
+            data.quality || [];
+
+
+        renderQualityRecords();
+
+    } catch(error) {
+
+        console.error(
+            "Quality loading error:",
+            error
+        );
+
+    }
+
+}
+
+
+// ============================================
+// RENDER QUALITY
+// ============================================
+
+function renderQualityRecords() {
+
+    const container =
+        document.getElementById(
+            "qualityRecords"
+        );
+
+
+    if (!qualityRecords.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+                No quality records yet.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    let html = "";
+
+
+    qualityRecords
+        .slice(0, 6)
+        .forEach(
+            record => {
+
+                html += `
+
+                    <div
+                        style="
+                            padding:11px 0;
+                            border-bottom:1px solid #f0f0f0;
+                        "
+                    >
+
+                        <div
+                            style="
+                                display:flex;
+                                justify-content:space-between;
+                                align-items:center;
+                            "
+                        >
+
+                            <strong
+                                style="font-size:12px;"
+                            >
+                                ${escapeHTML(
+                                    record.booking_id
+                                )}
+                            </strong>
+
+                            <span
+                                class="badge badge-green"
+                            >
+                                Grade ${escapeHTML(
+                                    record.grade
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="quality-grid"
+                            style="grid-template-columns:repeat(3,1fr);"
+                        >
+
+                            <div class="quality-value">
+
+                                <strong>
+                                    ${Number(
+                                        record.moisture || 0
+                                    ).toFixed(2)}%
+                                </strong>
+
+                                <span>
+                                    Moisture
+                                </span>
+
+                            </div>
+
+
+                            <div class="quality-value">
+
+                                <strong>
+                                    ${Number(
+                                        record.foreign_matter || 0
+                                    ).toFixed(2)}%
+                                </strong>
+
+                                <span>
+                                    Foreign
+                                </span>
+
+                            </div>
+
+
+                            <div class="quality-value">
+
+                                <strong>
+                                    ${Number(
+                                        record.damaged_grains || 0
+                                    ).toFixed(2)}%
+                                </strong>
+
+                                <span>
+                                    Damaged
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+// ============================================
+// SAVE QUALITY
+// ============================================
+
+async function saveQuality(event) {
+
+    event.preventDefault();
+
+
+    const bookingId =
+        document.getElementById(
+            "qualityBooking"
+        ).value;
+
+
+    const moisture =
+        document.getElementById(
+            "moisture"
+        ).value;
+
+
+    const foreignMatter =
+        document.getElementById(
+            "foreignMatter"
+        ).value;
+
+
+    const damagedGrains =
+        document.getElementById(
+            "damagedGrains"
+        ).value;
+
+
+    const grade =
+        document.getElementById(
+            "qualityGrade"
+        ).value;
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/admin/quality",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            booking_id:
+                                bookingId,
+
+                            moisture:
+                                Number(
+                                    moisture
+                                ),
+
+                            foreign_matter:
+                                Number(
+                                    foreignMatter
+                                ),
+
+                            damaged_grains:
+                                Number(
+                                    damagedGrains
+                                ),
+
+                            grade:
+                                grade
+
+                        })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Failed to save quality."
+            );
+
+        }
+
+
+        showToast(
+            "🔬 Quality result saved successfully."
+        );
+
+
+        document.getElementById(
+            "qualityForm"
+        ).reset();
+
+
+        await loadAll();
+
+
+    } catch(error) {
+
+        console.error(
+            "Save quality error:",
+            error
+        );
+
+
+        showToast(
+            error.message
+        );
+
+    }
+
+}
+
+
+// ============================================
+// LOAD PROCUREMENT
+// ============================================
+
+async function loadProcurement() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/admin/procurement"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            return;
+
+        }
+
+
+        procurementRecords =
+            data.procurement || [];
+
+
+        renderProcurementRecords();
+
+        renderProcurementTable();
+
+    } catch(error) {
+
+        console.error(
+            "Procurement loading error:",
+            error
+        );
+
+    }
+
+}
+
+
+// ============================================
+// RENDER PROCUREMENT RECORDS
+// ============================================
+
+function renderProcurementRecords() {
+
+    const container =
+        document.getElementById(
+            "procurementRecords"
+        );
+
+
+    if (!procurementRecords.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+                No procurement records yet.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    let html = "";
+
+
+    procurementRecords
+        .slice(0, 6)
+        .forEach(
+            record => {
+
+                html += `
+
+                    <div
+                        style="
+                            padding:12px 0;
+                            border-bottom:1px solid #f0f0f0;
+                        "
+                    >
+
+                        <div
+                            style="
+                                display:flex;
+                                justify-content:space-between;
+                                gap:10px;
+                            "
+                        >
+
+                            <div>
+
+                                <strong
+                                    style="font-size:12px;"
+                                >
+
+                                    ${escapeHTML(
+                                        record.booking_id
+                                    )}
+
+                                </strong>
+
+
+                                <div
+                                    style="
+                                        color:#6b7280;
+                                        font-size:10px;
+                                        margin-top:4px;
+                                    "
+                                >
+
+                                    ${escapeHTML(
+                                        record.farmer_name ||
+                                        "-"
+                                    )}
+
+                                </div>
+
+                            </div>
+
+
+                            <strong
+                                style="
+                                    color:#166534;
+                                    font-size:13px;
+                                "
+                            >
+
+                                ${formatCurrency(
+                                    record.total_amount
+                                )}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            style="
+                                margin-top:8px;
+                                font-size:10px;
+                                color:#6b7280;
+                            "
+                        >
+
+                            Weight:
+                            ${Number(
+                                record.net_weight || 0
+                            ).toFixed(2)}
+                            Q
+
+                            •
+
+                            Rate:
+                            ₹${Number(
+                                record.rate || 0
+                            ).toFixed(2)}/Q
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+// ============================================
+// PROCUREMENT TABLE
+// ============================================
+
+function renderProcurementTable() {
+
+    const container =
+        document.getElementById(
+            "procurementTable"
+        );
+
+
+    if (!procurementRecords.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+                No procurement records available.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    let html = `
+
+        <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Booking</th>
+
+                    <th>Farmer</th>
+
+                    <th>Crop</th>
+
+                    <th>Net Weight</th>
+
+                    <th>Rate</th>
+
+                    <th>Total</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+    `;
+
+
+    procurementRecords.forEach(
+        record => {
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            ${escapeHTML(
+                                record.booking_id
+                            )}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            record.farmer_name ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            record.crop ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${Number(
+                            record.net_weight || 0
+                        ).toFixed(2)}
+                        Q
+                    </td>
+
+                    <td>
+                        ₹${Number(
+                            record.rate || 0
+                        ).toFixed(2)}
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${formatCurrency(
+                                record.total_amount
+                            )}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${statusBadge(
+                            record.status
+                        )}
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+
+            </tbody>
+
+        </table>
+
+        </div>
+
+    `;
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+// ============================================
+// SAVE PROCUREMENT
+// ============================================
+
+async function saveProcurement(event) {
+
+    event.preventDefault();
+
+
+    const bookingId =
+        document.getElementById(
+            "procurementBooking"
+        ).value;
+
+
+    const weight =
+        Number(
+            document.getElementById(
+                "netWeight"
+            ).value
+        );
+
+
+    const rate =
+        Number(
+            document.getElementById(
+                "procurementRate"
+            ).value
+        );
+
+
+    if (
+        !bookingId ||
+        weight <= 0 ||
+        rate <= 0
+    ) {
+
+        showToast(
+            "Please enter valid weighing details."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/admin/procurement",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            booking_id:
+                                bookingId,
+
+                            net_weight:
+                                weight,
+
+                            rate:
+                                rate
+
+                        })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Unable to save procurement."
+            );
+
+        }
+
+
+        showToast(
+            "⚖️ Weight and procurement saved."
+        );
+
+
+        document
+            .querySelector(
+                "#weighing form"
+            )
+            .reset();
+
+
+        document.getElementById(
+            "procurementRate"
+        ).value =
+            "2300";
+
+
+        updateCalculatedAmount();
+
+
+        await loadAll();
+
+
+    } catch(error) {
+
+        console.error(
+            "Procurement save error:",
+            error
+        );
+
+
+        showToast(
+            error.message
+        );
+
+    }
+
+}
+
+
+// ============================================
+// CALCULATE AMOUNT
+// ============================================
+
+function updateCalculatedAmount() {
+
+    const weight =
+        Number(
+            document.getElementById(
+                "netWeight"
+            ).value
+        ) || 0;
+
+
+    const rate =
+        Number(
+            document.getElementById(
+                "procurementRate"
+            ).value
+        ) || 0;
+
+
+    const amount =
+        weight * rate;
+
+
+    document.getElementById(
+        "calculatedAmount"
+    ).textContent =
+        formatCurrency(
+            amount
+        );
+
+}
+
+
+document.addEventListener(
+    "input",
+    function(event) {
+
+        if (
+            event.target.id ===
+                "netWeight" ||
+
+            event.target.id ===
+                "procurementRate"
+        ) {
+
+            updateCalculatedAmount();
+
+        }
+
+    }
+);
+
+
+// ============================================
+// LOAD PAYMENTS
+// ============================================
+
+async function loadPayments() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/admin/payments"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            return;
+
+        }
+
+
+        paymentRecords =
+            data.payments || [];
+
+
+        renderPayments();
+
+    } catch(error) {
+
+        console.error(
+            "Payments error:",
+            error
+        );
+
+    }
+
+}
+
+
+// ============================================
+// RENDER PAYMENTS
+// ============================================
+
+function renderPayments() {
+
+    const container =
+        document.getElementById(
+            "paymentsTable"
+        );
+
+
+    if (!paymentRecords.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                💰 No payment records yet.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    let html = `
+
+        <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Booking</th>
+
+                    <th>Farmer</th>
+
+                    <th>Amount</th>
+
+                    <th>Status</th>
+
+                    <th>Date</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+    `;
+
+
+    paymentRecords.forEach(
+        payment => {
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            ${escapeHTML(
+                                payment.booking_id
+                            )}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            payment.farmer_name ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+
+                        <strong
+                            style="
+                                color:#166534;
+                            "
+                        >
+
+                            ${formatCurrency(
+                                payment.amount
+                            )}
+
+                        </strong>
+
+                    </td>
+
+                    <td>
+                        ${paymentBadge(
+                            payment.payment_status
+                        )}
+                    </td>
+
+                    <td>
+                        ${formatDate(
+                            payment.payment_date
+                        )}
+                    </td>
+
+                    <td>
+
+                        ${
+                            String(
+                                payment.payment_status
+                            ).toLowerCase() ===
+                            "completed"
+
+                            ?
+
+                            `<span
+                                class="badge badge-green"
+                            >
+                                ✓ Paid
+                            </span>`
+
+                            :
+
+                            `<button
+                                class="btn btn-green"
+                                onclick="processPayment(
+                                    '${escapeJS(
+                                        payment.booking_id
+                                    )}',
+                                    ${Number(
+                                        payment.amount
+                                    )}
+                                )"
+                            >
+                                💰 Pay
+                            </button>`
+                        }
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+
+            </tbody>
+
+        </table>
+
+        </div>
+
+    `;
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+// ============================================
+// PROCESS PAYMENT
+// ============================================
+
+async function processPayment(
+    bookingId,
+    amount
+) {
+
+    const confirmed =
+        confirm(
+            `Process payment of ${formatCurrency(
+                amount
+            )} for booking ${bookingId}?`
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/admin/payments",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            booking_id:
+                                bookingId,
+
+                            amount:
+                                amount
+
+                        })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Payment failed."
+            );
+
+        }
+
+
+        showToast(
+            "💰 Payment completed successfully."
+        );
+
+
+        await loadAll();
+
+
+    } catch(error) {
+
+        console.error(
+            "Payment error:",
+            error
+        );
+
+
+        showToast(
+            error.message
+        );
+
+    }
+
+}
+
+
+// ============================================
+// LOAD NOTIFICATIONS
+// ============================================
+
+async function loadNotifications() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/admin/notifications"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            return;
+
+        }
+
+
+        notificationRecords =
+            data.notifications || [];
+
+
+        renderNotifications();
+
+    } catch(error) {
+
+        console.error(
+            "Notification error:",
+            error
+        );
+
+    }
+
+}
+
+
+// ============================================
+// RENDER NOTIFICATIONS
+// ============================================
+
+function renderNotifications() {
+
+    const container =
+        document.getElementById(
+            "notificationRecords"
+        );
+
+
+    if (!notificationRecords.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+                🔔 No notifications yet.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    let html = "";
+
+
+    notificationRecords
+        .slice(0, 8)
+        .forEach(
+            notification => {
+
+                html += `
+
+                    <div class="notification">
+
+
+                        <div class="notification-icon">
+                            🔔
+                        </div>
+
+
+                        <div>
+
+                            <div class="notification-title">
+
+                                ${escapeHTML(
+                                    notification.title ||
+                                    "Notification"
+                                )}
+
+                            </div>
+
+
+                            <div class="notification-message">
+
+                                ${escapeHTML(
+                                    notification.message ||
+                                    ""
+                                )}
+
+                            </div>
+
+
+                            <div
+                                style="
+                                    color:#9ca3af;
+                                    font-size:9px;
+                                    margin-top:4px;
+                                "
+                            >
+
+                                To:
+                                ${escapeHTML(
+                                    notification.farmer_name ||
+                                    "Farmer"
+                                )}
+
+                                •
+
+                                ${formatDate(
+                                    notification.created_at
+                                )}
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+// ============================================
+// SEND NOTIFICATION
+// ============================================
+
+async function sendNotification(event) {
+
+    event.preventDefault();
+
+
+    const farmerId =
+        document.getElementById(
+            "notificationFarmer"
+        ).value;
+
+
+    const title =
+        document.getElementById(
+            "notificationTitle"
+        ).value;
+
+
+    const message =
+        document.getElementById(
+            "notificationMessage"
+        ).value;
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/admin/notifications",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            farmer_id:
+                                farmerId,
+
+                            title:
+                                title,
+
+                            message:
+                                message
+
+                        })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Unable to send notification."
+            );
+
+        }
+
+
+        showToast(
+            "🔔 Notification sent successfully."
+        );
+
+
+        event.target.reset();
+
+
+        await loadNotifications();
+
+
+    } catch(error) {
+
+        console.error(
+            "Notification error:",
+            error
+        );
+
+
+        showToast(
+            error.message
+        );
+
+    }
+
+}
+
+
+// ============================================
+// POPULATE FARMER SELECTS
+// ============================================
+
+function populateFarmerSelects() {
+
+    const select =
+        document.getElementById(
+            "notificationFarmer"
+        );
+
+
+    select.innerHTML = `
+
+        <option value="">
+            Select farmer
+        </option>
+
+    `;
+
+
+    farmers.forEach(
+        farmer => {
+
+            select.innerHTML += `
+
+                <option value="${farmer.id}">
+
+                    ${escapeHTML(
+                        farmer.name
+                    )}
+
+                    -
+
+                    ${escapeHTML(
+                        farmer.mobile
+                    )}
+
+                </option>
+
+            `;
+
+        }
+    );
+
+}
+
+
+// ============================================
+// POPULATE BOOKING SELECTS
+// ============================================
+
+function populateBookingSelects() {
+
+    const qualitySelect =
+        document.getElementById(
+            "qualityBooking"
+        );
+
+
+    const procurementSelect =
+        document.getElementById(
+            "procurementBooking"
+        );
+
+
+    qualitySelect.innerHTML = `
+
+        <option value="">
+            Select booking
+        </option>
+
+    `;
+
+
+    procurementSelect.innerHTML = `
+
+        <option value="">
+            Select booking
+        </option>
+
+    `;
+
+
+    bookings.forEach(
+        booking => {
+
+            const text =
+
+                `${booking.booking_id} - ` +
+
+                `${booking.farmer_name || "Farmer"} - ` +
+
+                `${booking.crop || "Crop"}`;
+
+
+            qualitySelect.innerHTML += `
+
+                <option
+                    value="${escapeHTML(
+                        booking.booking_id
+                    )}"
+                >
+
+                    ${escapeHTML(text)}
+
+                </option>
+
+            `;
+
+
+            procurementSelect.innerHTML += `
+
+                <option
+                    value="${escapeHTML(
+                        booking.booking_id
+                    )}"
+                >
+
+                    ${escapeHTML(text)}
+
+                </option>
+
+            `;
+
+        }
+    );
+
+}
+
+
+// ============================================
+// RENDER LIVE QUEUE
+// ============================================
+
+function renderQueue() {
+
+    const container =
+        document.getElementById(
+            "queueTable"
+        );
+
+
+    if (!bookings.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                🚜 No farmers currently in queue.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const activeBookings =
+        bookings.filter(
+            booking => {
+
+                const status =
+                    String(
+                        booking.status ||
+                        ""
+                    ).toLowerCase();
+
+
+                return (
+
+                    status !==
+                        "payment completed" &&
+
+                    status !==
+                        "cancelled"
+
+                );
+
+            }
+        );
+
+
+    if (!activeBookings.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                ✓ Queue is currently empty.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    let html = `
+
+        <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Position</th>
+
+                    <th>Token</th>
+
+                    <th>Booking</th>
+
+                    <th>Farmer</th>
+
+                    <th>Crop</th>
+
+                    <th>Quantity</th>
+
+                    <th>Status</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+    `;
+
+
+    activeBookings.forEach(
+        (booking, index) => {
+
+            html += `
+
+                <tr>
+
+                    <td>
+
+                        <div
+                            style="
+                                width:30px;
+                                height:30px;
+                                background:#dcfce7;
+                                color:#166534;
+                                border-radius:50%;
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                                font-weight:800;
+                            "
+                        >
+
+                            #${index + 1}
+
+                        </div>
+
+                    </td>
+
+
+                    <td>
+
+                        <strong>
+
+                            ${escapeHTML(
+                                booking.token ||
+                                "-"
+                            )}
+
+                        </strong>
+
+                    </td>
+
+
+                    <td>
+
+                        ${escapeHTML(
+                            booking.booking_id
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        ${escapeHTML(
+                            booking.farmer_name ||
+                            "-"
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        ${escapeHTML(
+                            booking.crop ||
+                            "-"
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        ${Number(
+                            booking.quintals ||
+                            0
+                        ).toFixed(2)}
+                        Q
+
+                    </td>
+
+
+                    <td>
+
+                        ${statusBadge(
+                            booking.status
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        <button
+                            class="btn btn-blue"
+                            onclick="viewBooking('${escapeJS(
+                                booking.booking_id
+                            )}')"
+                        >
+
+                            Manage
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+
+            </tbody>
+
+        </table>
+
+        </div>
+
+    `;
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+// ============================================
+// STATUS BADGE
+// ============================================
+
+function statusBadge(status) {
+
+    const value =
+        String(
+            status ||
+            "Confirmed"
+        );
+
+
+    const lower =
+        value.toLowerCase();
+
+
+    let cls =
+        "badge-gray";
+
+
+    if (
+        lower.includes(
+            "confirmed"
+        )
+    ) {
+
+        cls =
+            "badge-green";
+
+    }
+
+
+    else if (
+        lower.includes(
+            "arrived"
+        )
+    ) {
+
+        cls =
+            "badge-blue";
+
+    }
+
+
+    else if (
+        lower.includes(
+            "quality"
+        )
+    ) {
+
+        cls =
+            "badge-yellow";
+
+    }
+
+
+    else if (
+        lower.includes(
+            "weighing"
+        )
+    ) {
+
+        cls =
+            "badge-blue";
+
+    }
+
+
+    else if (
+        lower.includes(
+            "procurement"
+        )
+    ) {
+
+        cls =
+            "badge-purple";
+
+    }
+
+
+    else if (
+        lower.includes(
+            "payment"
+        )
+    ) {
+
+        cls =
+            "badge-green";
+
+    }
+
+
+    return `
+
+        <span class="badge ${cls}">
+
+            ${escapeHTML(value)}
+
+        </span>
+
+    `;
+
+}
+
+
+// ============================================
+// PAYMENT BADGE
+// ============================================
+
+function paymentBadge(status) {
+
+    const value =
+        String(
+            status ||
+            "Processing"
+        );
+
+
+    const lower =
+        value.toLowerCase();
+
+
+    if (
+        lower ===
+        "completed"
+    ) {
+
+        return `
+
+            <span class="badge badge-green">
+                ✓ Completed
+            </span>
+
+        `;
+
+    }
+
+
+    if (
+        lower ===
+        "failed"
+    ) {
+
+        return `
+
+            <span class="badge badge-gray">
+                Failed
+            </span>
+
+        `;
+
+    }
+
+
+    return `
+
+        <span class="badge badge-orange">
+            ⏳ Processing
+        </span>
+
+    `;
+
+}
+
+
+// ============================================
+// NAVIGATION
+// ============================================
+
+function goTo(id) {
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    if (element) {
+
+        element.scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "start"
+
+        });
+
+    }
+
+
+    document
+        .querySelectorAll(
+            ".nav-item"
+        )
+        .forEach(
+            item => {
+
+                item.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            ".nav-item"
+        )
+        .forEach(
+            item => {
+
+                const onclick =
+                    item.getAttribute(
+                        "onclick"
+                    );
+
+
+                if (
+                    onclick &&
+                    onclick.includes(
+                        `'${id}'`
+                    )
+                ) {
+
+                    item.classList.add(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+}
+
+
+// ============================================
+// FORMAT CURRENCY
+// ============================================
+
+function formatCurrency(
+    amount
+) {
+
+    return new Intl.NumberFormat(
+        "en-IN",
+        {
+
+            style: "currency",
+
+            currency: "INR",
+
+            maximumFractionDigits: 0
+
+        }
+    ).format(
+        Number(amount) || 0
+    );
+
+}
+
+
+// ============================================
+// FORMAT DATE
+// ============================================
+
+function formatDate(value) {
+
+    if (!value) {
+
+        return "-";
+
+    }
+
+
+    try {
+
+        const date =
+            new Date(value);
+
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return value;
+
+        }
+
+
+        return date.toLocaleDateString(
+            "en-IN"
+        );
+
+    } catch(error) {
+
+        return value;
+
+    }
+
+}
+
+
+// ============================================
+// ESCAPE HTML
+// ============================================
+
+function escapeHTML(value) {
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+// ============================================
+// ESCAPE JAVASCRIPT
+// ============================================
+
+function escapeJS(value) {
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
+    .replace(
+        /'/g,
+        "\\'"
+    )
+    .replace(
+        /"/g,
+        '\\"'
+    );
+
+}
+
+
+// ============================================
+// TOAST
+// ============================================
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        function() {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        3000
+    );
+
+}
+
+
+// ============================================
+// LOGOUT
+// ============================================
+
+function logout() {
+
+    localStorage.removeItem(
+        "admin"
+    );
+
+
+    window.location.href =
+        "admin-login.html";
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

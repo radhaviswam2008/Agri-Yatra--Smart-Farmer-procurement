@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Smart Farmer</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f8f6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #172033;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 460px;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e2e8e4;
+            border-radius: 22px;
+            padding: 36px;
+            box-shadow: 0 15px 40px rgba(20, 50, 30, 0.08);
+        }
+
+        .logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
+            background: #dcfce7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 16px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 28px;
+            font-size: 15px;
+        }
+
+        /* ROLE SELECTOR */
+
+        .role-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            background: #f1f5f3;
+            padding: 6px;
+            border-radius: 14px;
+            margin-bottom: 28px;
+        }
+
+        .role-btn {
+            border: none;
+            background: transparent;
+            padding: 13px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            color: #667085;
+            transition: 0.2s;
+        }
+
+        .role-btn.active {
+            background: white;
+            color: #16743b;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+        }
+
+        .role-btn.admin.active {
+            color: #2563eb;
+        }
+
+        .login-title {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .login-description {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 22px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #344054;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #d7ded9;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #22a447;
+            box-shadow: 0 0 0 3px rgba(34, 164, 71, 0.10);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 11px;
+            background: #16803c;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 4px;
+            transition: 0.2s;
+        }
+
+        .login-btn:hover {
+            background: #116b31;
+        }
+
+        .login-btn.admin {
+            background: #2563eb;
+        }
+
+        .login-btn.admin:hover {
+            background: #1d4ed8;
+        }
+
+        .message {
+            display: none;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .message.error {
+            display: block;
+            background: #fef2f2;
+            color: #b42318;
+            border: 1px solid #fecaca;
+        }
+
+        .message.success {
+            display: block;
+            background: #ecfdf3;
+            color: #067647;
+            border: 1px solid #abefc6;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 22px;
+            font-size: 14px;
+            color: #667085;
+        }
+
+        .register-link a {
+            color: #16803c;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .admin-note {
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 10px;
+            background: #eff6ff;
+            border: 1px solid #dbeafe;
+            color: #1e40af;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #667085;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            color: #16803c;
+        }
+
+        @media (max-width: 500px) {
+            .card {
+                padding: 26px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="logo" id="logoIcon">
+            🌾
+        </div>
+
+        <h1>Smart Farmer</h1>
+
+        <p class="subtitle">
+            Procurement Management Portal
+        </p>
+
+        <!-- ROLE SELECTION -->
+
+        <div class="role-selector">
+
+            <button
+                type="button"
+                class="role-btn active"
+                id="farmerRoleBtn"
+                onclick="selectRole('farmer')"
+            >
+                👨‍🌾 Farmer
+            </button>
+
+            <button
+                type="button"
+                class="role-btn admin"
+                id="adminRoleBtn"
+                onclick="selectRole('admin')"
+            >
+                👨‍💼 Admin
+            </button>
+
+        </div>
+
+
+        <!-- FARMER LOGIN -->
+
+        <div id="farmerLogin">
+
+            <div class="login-title">
+                Farmer Login
+            </div>
+
+            <div class="login-description">
+                Login to book and track your procurement.
+            </div>
+
+            <div id="farmerMessage" class="message"></div>
+
+            <form id="farmerForm">
+
+                <div class="form-group">
+
+                    <label for="farmerMobile">
+                        Mobile Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="farmerMobile"
+                        placeholder="Enter your mobile number"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="farmerId">
+                        Farmer ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="farmerId"
+                        placeholder="Enter your Farmer ID"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-btn"
+                >
+                    Login as Farmer
+                </button>
+
+            </form>
+
+
+            <div class="register-link">
+
+                New farmer?
+
+                <a href="register.html">
+                    Create an account
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- ADMIN LOGIN -->
+
+        <div
+            id="adminLogin"
+            style="display: none;"
+        >
+
+            <div class="login-title">
+                Admin Login
+            </div>
+
+            <div class="login-description">
+                Login to manage the procurement centre.
+            </div>
+
+            <div id="adminMessage" class="message"></div>
+
+            <form id="adminForm">
+
+                <div class="form-group">
+
+                    <label for="adminUsername">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="adminUsername"
+                        placeholder="Enter admin username"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="adminPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="adminPassword"
+                        placeholder="Enter admin password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-btn admin"
+                >
+                    Login as Admin
+                </button>
+
+            </form>
+
+
+            <div class="admin-note">
+                Procurement centre administrators can manage
+                bookings, quality, weighing, procurement and payments.
+            </div>
+
+        </div>
+
+
+        <a
+            href="index.html"
+            class="back-link"
+        >
+            ← Back to Home
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    let currentRole = "farmer";
+
+
+    // ==============================
+    // ROLE SELECTION
+    // ==============================
+
+    function selectRole(role) {
+
+        currentRole = role;
+
+        const farmerBtn =
+            document.getElementById("farmerRoleBtn");
+
+        const adminBtn =
+            document.getElementById("adminRoleBtn");
+
+        const farmerLogin =
+            document.getElementById("farmerLogin");
+
+        const adminLogin =
+            document.getElementById("adminLogin");
+
+        const logoIcon =
+            document.getElementById("logoIcon");
+
+
+        if (role === "farmer") {
+
+            farmerBtn.classList.add("active");
+            adminBtn.classList.remove("active");
+
+            farmerLogin.style.display = "block";
+            adminLogin.style.display = "none";
+
+            logoIcon.textContent = "🌾";
+
+        } else {
+
+            farmerBtn.classList.remove("active");
+            adminBtn.classList.add("active");
+
+            farmerLogin.style.display = "none";
+            adminLogin.style.display = "block";
+
+            logoIcon.textContent = "👨‍💼";
+
+        }
+
+    }
+
+
+    // ==============================
+    // FARMER LOGIN
+    // ==============================
+
+    document
+        .getElementById("farmerForm")
+        .addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+            const mobile =
+                document
+                    .getElementById("farmerMobile")
+                    .value
+                    .trim();
+
+            const farmer_id =
+                document
+                    .getElementById("farmerId")
+                    .value
+                    .trim();
+
+
+            const message =
+                document.getElementById("farmerMessage");
+
+            message.className = "message";
+            message.style.display = "none";
+
+
+            try {
+
+                const response =
+                    await fetch("/api/farmers/login", {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            mobile: mobile,
+                            farmer_id: farmer_id
+                        })
+
+                    });
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok || !data.success) {
+
+                    message.textContent =
+                        data.message ||
+                        "Invalid farmer login details.";
+
+                    message.className =
+                        "message error";
+
+                    return;
+                }
+
+
+                localStorage.setItem(
+                    "farmer",
+                    JSON.stringify(data.farmer)
+                );
+
+
+                message.textContent =
+                    "Login successful. Redirecting...";
+
+                message.className =
+                    "message success";
+
+
+                setTimeout(() => {
+
+                    window.location.href =
+                        "dashboard.html";
+
+                }, 500);
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                message.textContent =
+                    "Unable to connect to the server.";
+
+                message.className =
+                    "message error";
+
+            }
+
+        });
+
+
+    // ==============================
+    // ADMIN LOGIN
+    // ==============================
+
+    document
+        .getElementById("adminForm")
+        .addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+            const username =
+                document
+                    .getElementById("adminUsername")
+                    .value
+                    .trim();
+
+            const password =
+                document
+                    .getElementById("adminPassword")
+                    .value;
+
+
+            const message =
+                document.getElementById("adminMessage");
+
+            message.className = "message";
+            message.style.display = "none";
+
+
+            try {
+
+                const response =
+                    await fetch("/api/admin/login", {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            username: username,
+                            password: password
+                        })
+
+                    });
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok || !data.success) {
+
+                    message.textContent =
+                        data.message ||
+                        "Invalid admin login details.";
+
+                    message.className =
+                        "message error";
+
+                    return;
+                }
+
+
+                localStorage.setItem(
+                    "admin",
+                    JSON.stringify(data.admin)
+                );
+
+
+                message.textContent =
+                    "Admin login successful. Redirecting...";
+
+                message.className =
+                    "message success";
+
+
+                setTimeout(() => {
+
+                    window.location.href =
+                        "admin-dashboard.html";
+
+                }, 500);
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                message.textContent =
+                    "Unable to connect to the server.";
+
+                message.className =
+                    "message error";
+
+            }
+
+        });
+
+</script>
+
+</body>
+</html>

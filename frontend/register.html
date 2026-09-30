@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Farmer Registration | Smart Farmer</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4faf6;
+
+            color: #17251c;
+
+        }
+
+
+        .page {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 30px;
+
+        }
+
+
+        .register-card {
+
+            width: 100%;
+
+            max-width: 850px;
+
+            background: white;
+
+            border-radius: 22px;
+
+            padding: 40px;
+
+            box-shadow:
+                0 15px 50px rgba(0, 0, 0, 0.08);
+
+        }
+
+
+        .brand {
+
+            color: #16834a;
+
+            font-size: 26px;
+
+            font-weight: bold;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        h1 {
+
+            margin: 0;
+
+            font-size: 34px;
+
+        }
+
+
+        .subtitle {
+
+            color: #6b776f;
+
+            margin-bottom: 35px;
+
+            line-height: 1.6;
+
+        }
+
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 20px;
+
+        }
+
+
+        .input-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        .input-group.full {
+
+            grid-column: 1 / -1;
+
+        }
+
+
+        label {
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        input,
+        select {
+
+            padding: 14px;
+
+            border: 1px solid #d9e5dd;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+
+            outline: none;
+
+        }
+
+
+        input:focus,
+        select:focus {
+
+            border-color: #16834a;
+
+            box-shadow:
+                0 0 0 3px rgba(22, 131, 74, 0.08);
+
+        }
+
+
+        .submit-btn {
+
+            width: 100%;
+
+            margin-top: 30px;
+
+            padding: 16px;
+
+            background: #16834a;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 10px;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .submit-btn:hover {
+
+            background: #106b3c;
+
+        }
+
+
+        .submit-btn:disabled {
+
+            background: #9bbbaa;
+
+            cursor: not-allowed;
+
+        }
+
+
+        .login-text {
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #6b776f;
+
+        }
+
+
+        .login-text a {
+
+            color: #16834a;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+        }
+
+
+        .message {
+
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            display: none;
+
+            line-height: 1.5;
+
+        }
+
+
+        .success {
+
+            background: #e5f7ec;
+
+            color: #13733f;
+
+        }
+
+
+        .error {
+
+            background: #fdecec;
+
+            color: #b42318;
+
+        }
+
+
+        .required {
+
+            color: #d32f2f;
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .input-group.full {
+
+                grid-column: auto;
+
+            }
+
+            .register-card {
+
+                padding: 25px;
+
+            }
+
+            h1 {
+
+                font-size: 28px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+    <div class="register-card">
+
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            🌿 Smart Farmer
+
+        </div>
+
+
+        <!-- TITLE -->
+
+        <h1>
+
+            Create Your Farmer Account
+
+        </h1>
+
+
+        <p class="subtitle">
+
+            Register once and manage your complete
+            crop procurement journey digitally.
+
+        </p>
+
+
+        <!-- FORM -->
+
+        <form id="registerForm">
+
+
+            <div class="form-grid">
+
+
+                <!-- NAME -->
+
+                <div class="input-group">
+
+                    <label>
+
+                        Full Name
+                        <span class="required">*</span>
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- MOBILE -->
+
+                <div class="input-group">
+
+                    <label>
+
+                        Mobile Number
+                        <span class="required">*</span>
+
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        placeholder="10-digit mobile number"
+                        maxlength="10"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- VILLAGE -->
+
+                <div class="input-group">
+
+                    <label>
+                        Village
+                    </label>
+
+                    <input
+                        type="text"
+                        id="village"
+                        placeholder="Enter village"
+                    >
+
+                </div>
+
+
+                <!-- DISTRICT -->
+
+                <div class="input-group">
+
+                    <label>
+                        District
+                    </label>
+
+                    <input
+                        type="text"
+                        id="district"
+                        placeholder="Enter district"
+                    >
+
+                </div>
+
+
+                <!-- STATE -->
+
+                <div class="input-group">
+
+                    <label>
+                        State
+                    </label>
+
+                    <select id="state">
+
+                        <option value="">
+                            Select State
+                        </option>
+
+                        <option value="Andhra Pradesh">
+                            Andhra Pradesh
+                        </option>
+
+                        <option value="Telangana">
+                            Telangana
+                        </option>
+
+                        <option value="Karnataka">
+                            Karnataka
+                        </option>
+
+                        <option value="Tamil Nadu">
+                            Tamil Nadu
+                        </option>
+
+                        <option value="Maharashtra">
+                            Maharashtra
+                        </option>
+
+                        <option value="Odisha">
+                            Odisha
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- FARMER ID -->
+
+                <div class="input-group">
+
+                    <label>
+                        Farmer ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="farmer_id"
+                        placeholder="Enter Farmer ID"
+                    >
+
+                </div>
+
+
+                <!-- LANGUAGE -->
+
+                <div class="input-group full">
+
+                    <label>
+                        Preferred Language
+                    </label>
+
+                    <select id="language">
+
+                        <option value="English">
+                            English
+                        </option>
+
+                        <option value="Telugu">
+                            తెలుగు (Telugu)
+                        </option>
+
+                        <option value="Hindi">
+                            हिंदी (Hindi)
+                        </option>
+
+                        <option value="Tamil">
+                            தமிழ் (Tamil)
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                class="submit-btn"
+                id="submitButton"
+            >
+
+                Create Farmer Account →
+
+            </button>
+
+
+        </form>
+
+
+        <!-- MESSAGE -->
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+
+        <!-- LOGIN -->
+
+        <div class="login-text">
+
+            Already registered?
+
+            <a href="login.html">
+                Login here
+            </a>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+// ==========================================
+// REGISTRATION FORM
+// ==========================================
+
+document
+.getElementById("registerForm")
+.addEventListener("submit", async function(event) {
+
+    // Stop normal form submission
+    event.preventDefault();
+
+
+    const message =
+        document.getElementById("message");
+
+    const submitButton =
+        document.getElementById("submitButton");
+
+
+    // Get form values
+
+    const farmer = {
+
+        name:
+            document.getElementById("name").value.trim(),
+
+        mobile:
+            document.getElementById("mobile").value.trim(),
+
+        village:
+            document.getElementById("village").value.trim(),
+
+        district:
+            document.getElementById("district").value.trim(),
+
+        state:
+            document.getElementById("state").value,
+
+        farmer_id:
+            document.getElementById("farmer_id").value.trim(),
+
+        language:
+            document.getElementById("language").value
+
+    };
+
+
+    // ==========================================
+    // BASIC VALIDATION
+    // ==========================================
+
+    if (!/^[0-9]{10}$/.test(farmer.mobile)) {
+
+        message.className =
+            "message error";
+
+        message.style.display =
+            "block";
+
+        message.textContent =
+            "❌ Please enter a valid 10-digit mobile number.";
+
+        return;
+
+    }
+
+
+    // Disable button while processing
+
+    submitButton.disabled = true;
+
+    submitButton.textContent =
+        "Creating Account...";
+
+
+    try {
+
+
+        // ==========================================
+        // SEND DATA TO BACKEND
+        // ==========================================
+
+        const response = await fetch(
+            "/api/farmers/register",
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body:
+                    JSON.stringify(farmer)
+
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        // ==========================================
+        // SUCCESS
+        // ==========================================
+
+        if (response.ok && data.success) {
+
+
+            message.className =
+                "message success";
+
+            message.style.display =
+                "block";
+
+            message.textContent =
+                "✅ Registration successful! " +
+                "Opening your dashboard...";
+
+
+            // Save farmer information
+            // temporarily for the current browser
+
+            localStorage.setItem(
+                "farmer",
+                JSON.stringify(data.farmer)
+            );
+
+
+            // Open dashboard
+
+            setTimeout(() => {
+
+                window.location.href =
+                    "dashboard.html";
+
+            }, 1200);
+
+
+        }
+
+
+        // ==========================================
+        // ERROR
+        // ==========================================
+
+        else {
+
+
+            message.className =
+                "message error";
+
+            message.style.display =
+                "block";
+
+            message.textContent =
+                "❌ " +
+                (data.message ||
+                 "Registration failed.");
+
+            submitButton.disabled = false;
+
+            submitButton.textContent =
+                "Create Farmer Account →";
+
+        }
+
+
+    }
+
+
+    // ==========================================
+    // SERVER CONNECTION ERROR
+    // ==========================================
+
+    catch (error) {
+
+
+        console.error(
+            "Registration error:",
+            error
+        );
+
+
+        message.className =
+            "message error";
+
+        message.style.display =
+            "block";
+
+        message.textContent =
+            "❌ Unable to connect to the server. " +
+            "Please make sure the Node.js server is running.";
+
+
+        submitButton.disabled = false;
+
+        submitButton.textContent =
+            "Create Farmer Account →";
+
+    }
+
+});
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Farmer Procurement</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5faf7;
+            color: #17251c;
+        }
+
+        header {
+            background: white;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5eee8;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #16834a;
+        }
+
+        .hero {
+            max-width: 1100px;
+            margin: 80px auto;
+            padding: 40px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #16834a;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #66736b;
+            max-width: 650px;
+            line-height: 1.6;
+        }
+
+        .buttons {
+            margin-top: 35px;
+        }
+
+        button {
+            padding: 15px 25px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .primary {
+            background: #16834a;
+            color: white;
+        }
+
+        .secondary {
+            background: white;
+            color: #16834a;
+            border: 1px solid #16834a;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 60px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .card h3 {
+            color: #16834a;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        🌿 Smart Farmer
+    </div>
+
+    <div>
+        <button class="secondary"
+                onclick="location.href='login.html'">
+            Login
+        </button>
+
+        <button class="primary"
+                onclick="location.href='register.html'">
+            Register
+        </button>
+    </div>
+
+</header>
+
+
+<section class="hero">
+
+    <p>SMART PROCUREMENT PLATFORM</p>
+
+    <h1>
+        Sell Your Crop
+        <br>
+        <span>Without Long Queues</span>
+    </h1>
+
+    <p>
+        Book your procurement slot, track the live queue,
+        monitor quality checking and receive payment updates
+        — all from one simple platform.
+    </p>
+
+
+    <div class="buttons">
+
+        <button
+            class="primary"
+            onclick="location.href='register.html'">
+
+            📅 Book a Procurement Slot →
+
+        </button>
+
+
+        <button
+            class="secondary"
+            onclick="location.href='login.html'">
+
+            🎟️ Track My Booking
+
+        </button>
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="card">
+
+            <h3>📅 Easy Booking</h3>
+
+            <p>
+                Select your crop, quantity, centre
+                and preferred time slot.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>📍 Live Queue</h3>
+
+            <p>
+                Know how many farmers are ahead
+                of you before reaching the centre.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>💰 Transparent Payment</h3>
+
+            <p>
+                Track weighing, quality and
+                procurement payment in one place.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</body>
+
+</html>

@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Admin Login - Smart Farmer Procurement
+    </title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f0fdf4,
+                    #ffffff,
+                    #ecfdf5
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: #1f2937;
+
+        }
+
+
+        .container {
+
+            width: 100%;
+
+            max-width: 430px;
+
+            padding: 20px;
+
+        }
+
+
+        .login-card {
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 18px;
+
+            padding: 35px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.08);
+
+        }
+
+
+        .logo {
+
+            width: 65px;
+
+            height: 65px;
+
+            margin: 0 auto 18px;
+
+            background: #dcfce7;
+
+            border-radius: 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 32px;
+
+        }
+
+
+        h1 {
+
+            text-align: center;
+
+            color: #166534;
+
+            font-size: 24px;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #6b7280;
+
+            font-size: 13px;
+
+            margin-bottom: 28px;
+
+        }
+
+
+        .admin-badge {
+
+            background: #f0fdf4;
+
+            color: #166534;
+
+            border: 1px solid #bbf7d0;
+
+            border-radius: 8px;
+
+            padding: 10px;
+
+            text-align: center;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom: 17px;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #374151;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border:
+                1px solid #d1d5db;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition: .2s;
+
+        }
+
+
+        input:focus {
+
+            border-color: #22c55e;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(34, 197, 94, .1);
+
+        }
+
+
+        .login-btn {
+
+            width: 100%;
+
+            border: none;
+
+            background: #166534;
+
+            color: white;
+
+            padding: 13px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            margin-top: 5px;
+
+        }
+
+
+        .login-btn:hover {
+
+            background: #14532d;
+
+        }
+
+
+        .login-btn:disabled {
+
+            background: #9ca3af;
+
+            cursor: not-allowed;
+
+        }
+
+
+        .error {
+
+            display: none;
+
+            background: #fef2f2;
+
+            border:
+                1px solid #fecaca;
+
+            color: #b91c1c;
+
+            padding: 11px;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .error.show {
+
+            display: block;
+
+        }
+
+
+        .demo-box {
+
+            margin-top: 22px;
+
+            padding: 13px;
+
+            background: #f9fafb;
+
+            border-radius: 9px;
+
+            border:
+                1px solid #e5e7eb;
+
+        }
+
+
+        .demo-title {
+
+            font-size: 11px;
+
+            color: #6b7280;
+
+            font-weight: 700;
+
+            margin-bottom: 7px;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .demo-text {
+
+            font-size: 12px;
+
+            color: #374151;
+
+            line-height: 1.7;
+
+        }
+
+
+        .back-link {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 22px;
+
+            color: #166534;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+        }
+
+
+        .back-link:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        .footer {
+
+            text-align: center;
+
+            margin-top: 18px;
+
+            font-size: 11px;
+
+            color: #9ca3af;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="login-card">
+
+
+        <div class="logo">
+            👨‍💼
+        </div>
+
+
+        <h1>
+            Admin Login
+        </h1>
+
+
+        <p class="subtitle">
+            Smart Farmer Procurement System
+        </p>
+
+
+        <div class="admin-badge">
+            🔐 Authorized Procurement Centre Access
+        </div>
+
+
+        <div
+            id="errorMessage"
+            class="error"
+        ></div>
+
+
+        <form
+            id="loginForm"
+        >
+
+
+            <div class="form-group">
+
+                <label for="username">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter admin username"
+                    autocomplete="username"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter admin password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-btn"
+                id="loginButton"
+            >
+                Login to Admin Dashboard
+            </button>
+
+
+        </form>
+
+
+        <div class="demo-box">
+
+            <div class="demo-title">
+                Demo Credentials
+            </div>
+
+            <div class="demo-text">
+
+                Username:
+                <strong>admin</strong>
+
+                <br>
+
+                Password:
+                <strong>admin123</strong>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="index.html"
+            class="back-link"
+        >
+            ← Back to Farmer Portal
+        </a>
+
+
+    </div>
+
+
+    <div class="footer">
+
+        Smart Farmer Procurement System
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+// ============================================
+// ADMIN LOGIN
+// ============================================
+
+document
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const username =
+                document
+                    .getElementById("username")
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .getElementById("password")
+                    .value;
+
+
+            const errorMessage =
+                document
+                    .getElementById("errorMessage");
+
+
+            const loginButton =
+                document
+                    .getElementById("loginButton");
+
+
+            errorMessage
+                .classList
+                .remove("show");
+
+
+            loginButton.disabled = true;
+
+            loginButton.textContent =
+                "Logging in...";
+
+
+            try {
+
+
+                const response =
+                    await fetch(
+                        "/api/admin/login",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json"
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    username:
+                                        username,
+
+                                    password:
+                                        password
+
+                                })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok ||
+                    !data.success) {
+
+                    throw new Error(
+                        data.message ||
+                        "Invalid username or password."
+                    );
+
+                }
+
+
+                // =================================
+                // SAVE ADMIN LOGIN
+                // =================================
+
+                localStorage.setItem(
+                    "admin",
+                    JSON.stringify(
+                        data.admin
+                    )
+                );
+
+
+                // =================================
+                // REDIRECT
+                // =================================
+
+                window.location.href =
+                    "admin-dashboard.html";
+
+
+            } catch (error) {
+
+
+                console.error(
+                    "Admin login error:",
+                    error
+                );
+
+
+                errorMessage.textContent =
+                    error.message ||
+                    "Unable to login. Please try again.";
+
+
+                errorMessage
+                    .classList
+                    .add("show");
+
+
+                loginButton.disabled =
+                    false;
+
+                loginButton.textContent =
+                    "Login to Admin Dashboard";
+
+            }
+
+        }
+    );
+
+
+// ============================================
+// AUTO FILL DEMO CREDENTIALS
+// ============================================
+
+document
+    .getElementById("username")
+    .value = "admin";
+
+
+document
+    .getElementById("password")
+    .value = "admin123";
+
+
+</script>
+
+
+</body>
+
+</html>
